@@ -22,9 +22,9 @@ public class DrugDbHelper extends SQLiteOpenHelper {
         String SQL_CREATE_TABLE = "CREATE TABLE " + DrugEntry.TABLE_NAME + "("
                 + DrugEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + DrugEntry.COLUMN_DRUG_NAME + " TEXT NOT NULL, "
-                + DrugEntry.COLUMN_DRUG_DISEASESAS + " TEXT NOT NULL, "
+                + DrugEntry.COLUMN_DRUG_DISEASES + " TEXT NOT NULL, "
                 + DrugEntry.COLUMN_DRUG_PRICE + " INTEGER NOT NULL DEFAULT 0, "
-                + DrugEntry.COLUMN_DRUG_STATUS + " TEXT NOT NULL);";
+                + DrugEntry.COLUMN_DRUG_STATUS + " INTEGER NOT NULL);";
 
         sqLiteDatabase.execSQL(SQL_CREATE_TABLE);
     }

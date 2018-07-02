@@ -39,15 +39,20 @@ public class DrugContract {
 
         public static final String _ID = BaseColumns._ID;
         public static final String COLUMN_DRUG_NAME = "name";
-        public static final String COLUMN_DRUG_DISEASESAS = "diseases";
+        public static final String COLUMN_DRUG_DISEASES = "diseases";
         public static final String COLUMN_DRUG_PRICE = "price";
         public static final String COLUMN_DRUG_STATUS = "status";
 
-        public static final String STATUS_AVAILABLE = "Available";
-        public static final String STATUS_OUT_OF_STOCK = "Out of stock";
+        public static final int STATUS_AVAILABLE = 1;
+        public static final int STATUS_OUT_OF_STOCK = 0;
 
         //TODO: make validation method for status
-
+        protected static final boolean isValidStatus (int status) {
+            if (status == STATUS_AVAILABLE || status == STATUS_OUT_OF_STOCK) {
+                return true;
+            }
+            return false;
+        }
     }
 
 
