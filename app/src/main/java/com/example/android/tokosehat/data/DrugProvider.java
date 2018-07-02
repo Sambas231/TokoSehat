@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import com.example.android.tokosehat.data.DrugContract.DrugEntry;
+import com.example.android.tokosehat.data.DrugContract;
 
 public class DrugProvider extends ContentProvider {
 
@@ -84,6 +85,9 @@ public class DrugProvider extends ContentProvider {
 
         switch (match) {
             case DRUGS:
+                return insert(uri, contentValues);
+            default :
+                throw new IllegalArgumentException("Insertion is not supported for " + uri);
 
         }
     }
@@ -110,17 +114,114 @@ public class DrugProvider extends ContentProvider {
         }
 
         SQLiteDatabase db = drugDbHelper.getWritableDatabase();
+        
+        long id = db.insert(DrugEntry.TABLE_NAME, null, values);
+        
+        if (id == -1) {
+          Log.e(LOG_TAG, "Failed to insert row for " + uri);
+          return null;
+        }
+        
+        getContext().getContentResolver().notifyChange(uri, null);
+        return ContentUris.withAppendedId(uri, id);
 
 
     }
 
     @Override
-    public int delete(@NonNull Uri uri, @Nullable String s, @Nullable String[] strings) {
-        return 0;
+    public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+        SQLiteDatabase db = drugDbHelper.getWritetableDatabase();
+        
+        int rowsDeleted;
+        final int match = sUriMatcher.match(uri);
+        
+        switch (match) {
+            case DRUGS:
+                rowsDeleted = db.delete(DrugEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+                
+            case DRUG_ID:
+                selection = DrugEntry._ID + "=?";
+                selectionArgs = new String[] {String.valueOf(ContentUris.parseId(uri))};
+                rowsDeleted = db.delete(DrugEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+                
+            default:
+                throw new IllegalArgumentException("Deletion is not supported for " + uri);
+        }
+        
+        if (rowsDeleted != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        
+        return rowsDeleted;
+        
     }
 
     @Override
-    public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s, @Nullable String[] strings) {
-        return 0;
+    public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String selection, @Nullable String[] selectionArgs) {
+        final int match = sUriMatcher.match(uri);
+        
+        switch (match) {
+            case DRUGS:
+                return updatePet(uri, contentValues, selection, selectionArgs);
+                
+            case DRUG_ID:
+                selection = DrugEntry._ID + "=?";
+                selectionArgs = new String[] {String.valueOf(ContentUris.parseId(uri))};
+                return updatePet(uri, contentValues, selection, selectionArgs);
+                
+            default:
+                throw new IllegalArgumentException("Updating is not supported for " + uri);
+                  
+        }
+    }
+    
+    private int updatePet (Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        if (values.containsKey(DrugEntry.COLUMN_DRUG_NAME)) {
+            String name = values.getAsString(DrugEntry.COLUMN_DRUG_NAME);
+            if (name == null) {
+                throw new IllegalArgumentException("Drug need valid name");
+            }
+        }
+        
+        if (values.containsKey(DrugEntry.COLUMN_DRUG_DISEASES)) {
+            String diseases = values.getAsString(DrugEntry.COLUMN_DRUG_DISEASES);
+            
+            if (diseases == null) {
+                throw new IllegalArgumentException("Drug need valid diseases");
+            }
+        }
+        
+        if (values.containsKey(DrugEntry.COLUMN_DRUG_PRICE)) {
+            Integer price = values.getAsInteger(DrugEntry.COLUMN_DRUG_PRICE);
+            
+            if (price != null %% price < 0) {
+                throw new IllegalArgumentException("Drug need valid price");
+            }
+        }
+        
+        if (values.containsKey(DrugEntry.COLUMN_DRUG_STATUS)) {
+            Integer status = values.getAsInteger(DrugEntry.COLUMN_DRUG_STATUS);
+            
+            if (status == null || !DrugEntry.isValidStatus(status)) {
+                throw new IllegalArgumentException("Please choose the right option");
+            }
+        }
+        
+        if (values.size() == 0) {
+            return 0;
+        }
+        
+        SQLiteDatabase db = drugDbHelper.getWritetableDatabase();
+        
+        int rowsUpdated = db.update(DrugEntry.TABLE_NAME, values, selection,selectionArgs);
+        
+        if (rowsUpdated != 0) {
+            getContext().getContentResolver().notifyChange(uri,null);
+        }
+        
+        return rowsUpdated;
+        
     }
 }

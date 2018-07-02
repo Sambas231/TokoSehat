@@ -8,52 +8,45 @@ import android.telecom.PhoneAccountHandle;
 
 import com.example.android.tokosehat.R;
 
-/**
- * Api Contract for TokoSehat app.
- */
-
+/** Api Contract for TokoSehat app. */
 public class DrugContract {
 
-    // To prevent someone from instantiating this class
-    // Empty Constructor
-    private DrugContract() {}
+  // To prevent someone from instantiating this class
+  // Empty Constructor
+  private DrugContract() {}
 
-    public static final String CONTENT_AUTHORITY = "com.example.android.tokosehat";
-    public static final Uri BASE_CONTENT_URI =  Uri.parse("content://" + CONTENT_AUTHORITY);
-    public static final String PATH_DRUG = "drugs";
+  public static final String CONTENT_AUTHORITY = "com.example.android.tokosehat";
+  public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
+  public static final String PATH_DRUG = "drugs";
 
-    /**
-     * Inner class that defines constant values for the drugs database table
-     */
-    public static final class DrugEntry implements BaseColumns {
+  /** Inner class that defines constant values for the drugs database table */
+  public static final class DrugEntry implements BaseColumns {
 
-        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_DRUG);
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_DRUG);
 
-        public static final String CONTENT_LIST_TYPE =
-                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_DRUG;
+    public static final String CONTENT_LIST_TYPE =
+        ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_DRUG;
 
-        public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_DRUG;
+    public static final String CONTENT_ITEM_TYPE =
+        ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_DRUG;
 
-        public static final String TABLE_NAME = "drugs";
+    public static final String TABLE_NAME = "drugs";
 
-        public static final String _ID = BaseColumns._ID;
-        public static final String COLUMN_DRUG_NAME = "name";
-        public static final String COLUMN_DRUG_DISEASES = "diseases";
-        public static final String COLUMN_DRUG_PRICE = "price";
-        public static final String COLUMN_DRUG_STATUS = "status";
+    public static final String _ID = BaseColumns._ID;
+    public static final String COLUMN_DRUG_NAME = "name";
+    public static final String COLUMN_DRUG_DISEASES = "diseases";
+    public static final String COLUMN_DRUG_PRICE = "price";
+    public static final String COLUMN_DRUG_STATUS = "status";
 
-        public static final int STATUS_AVAILABLE = 1;
-        public static final int STATUS_OUT_OF_STOCK = 0;
+    public static final int STATUS_AVAILABLE = 1;
+    public static final int STATUS_OUT_OF_STOCK = 0;
 
-        //TODO: make validation method for status
-        protected static final boolean isValidStatus (int status) {
-            if (status == STATUS_AVAILABLE || status == STATUS_OUT_OF_STOCK) {
-                return true;
-            }
-            return false;
-        }
+    // TODO: make validation method for status
+    protected static final boolean isValidStatus(int status) {
+      if (status == STATUS_AVAILABLE || status == STATUS_OUT_OF_STOCK) {
+        return true;
+      }
+      return false;
     }
-
-
+  }
 }
