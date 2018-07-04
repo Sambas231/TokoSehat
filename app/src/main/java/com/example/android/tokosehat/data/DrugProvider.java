@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
+
 import com.example.android.tokosehat.data.DrugContract.DrugEntry;
 import com.example.android.tokosehat.data.DrugContract;
 
@@ -130,7 +132,7 @@ public class DrugProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-        SQLiteDatabase db = drugDbHelper.getWritetableDatabase();
+        SQLiteDatabase db = drugDbHelper.getWritableDatabase();
         
         int rowsDeleted;
         final int match = sUriMatcher.match(uri);
@@ -196,7 +198,7 @@ public class DrugProvider extends ContentProvider {
         if (values.containsKey(DrugEntry.COLUMN_DRUG_PRICE)) {
             Integer price = values.getAsInteger(DrugEntry.COLUMN_DRUG_PRICE);
             
-            if (price != null %% price < 0) {
+            if (price != null && price < 0) {
                 throw new IllegalArgumentException("Drug need valid price");
             }
         }
@@ -213,7 +215,7 @@ public class DrugProvider extends ContentProvider {
             return 0;
         }
         
-        SQLiteDatabase db = drugDbHelper.getWritetableDatabase();
+        SQLiteDatabase db = drugDbHelper.getWritableDatabase();
         
         int rowsUpdated = db.update(DrugEntry.TABLE_NAME, values, selection,selectionArgs);
         

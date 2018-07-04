@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TokoSehat</string>
+
+    <string name="empty_view_text">Get started by adding a drug</string>
 </resources>
