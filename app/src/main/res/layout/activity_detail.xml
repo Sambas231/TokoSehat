@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/activity_margin"
-    tools:context=".EditorActivity">
+    tools:context=".DetailActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/editor_category_overview"
+            android:id="@+id/detail_category_overview"
             style="@style/editor_text_view"
             android:text="@string/category_overview" />
 
@@ -24,17 +24,13 @@
             android:layout_weight="2"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/editor_edit_name"
-                style="@style/editor_edit_text"
-                android:hint="@string/hint_name"
-                android:inputType="textCapWords" />
+            <TextView
+                android:id="@+id/detail_name"
+                style="@style/editor_edit_text" />
 
-            <EditText
-                android:id="@+id/editor_edit_diseases"
-                style="@style/editor_edit_text"
-                android:hint="@string/hint_diseases"
-                android:inputType="textCapWords" />
+            <TextView
+                android:id="@+id/detail_diseases"
+                style="@style/editor_edit_text" />
 
         </LinearLayout>
     </LinearLayout>
@@ -46,7 +42,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/editor_category_price"
+            android:id="@+id/detail_category_price"
             style="@style/editor_text_view"
             android:text="@string/category_price" />
 
@@ -56,15 +52,13 @@
             android:layout_weight="2">
 
             <TextView
-                android:id="@+id/editor_rupiah"
+                android:id="@+id/detail_rupiah"
                 style="@style/currency_rupiah"
                 android:text="@string/currency_rupiah" />
 
-            <EditText
-                android:id="@+id/editor_price_edit_text"
-                style="@style/editor_edit_number"
-                android:hint="@string/hint_price"
-                android:inputType="textCapWords" />
+            <TextView
+                android:id="@+id/detail_price_text"
+                style="@style/editor_edit_number" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -75,7 +69,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/editor_category_status"
+            android:id="@+id/detail_category_status"
             style="@style/editor_text_view"
             android:text="@string/category_status" />
 
@@ -85,13 +79,12 @@
             android:layout_weight="2"
             android:gravity="center">
 
-            <Spinner
-                android:id="@+id/editor_spinner"
+            <TextView
+                android:id="@+id/detail_status"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:gravity="center"
-                android:paddingRight="16dp"
-                android:spinnerMode="dropdown" />
+                android:paddingRight="16dp" />
 
 
         </LinearLayout>
