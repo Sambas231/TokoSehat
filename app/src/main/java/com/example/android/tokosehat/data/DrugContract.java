@@ -38,12 +38,12 @@ public class DrugContract {
     public static final String COLUMN_DRUG_PRICE = "price";
     public static final String COLUMN_DRUG_STATUS = "status";
 
-    public static final int STATUS_AVAILABLE = 1;
-    public static final int STATUS_OUT_OF_STOCK = 0;
+    public static final String STATUS_AVAILABLE = "Available";
+    public static final String STATUS_OUT_OF_STOCK = "Out of stock";
 
     // TODO: make validation method for status
-    protected static final boolean isValidStatus(int status) {
-      if (status == STATUS_AVAILABLE || status == STATUS_OUT_OF_STOCK) {
+    protected static final boolean isValidStatus(String status) {
+      if (status.equals(STATUS_AVAILABLE) || status.equals(STATUS_OUT_OF_STOCK)) {
         return true;
       }
       return false;

@@ -11,7 +11,7 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="detail_action_delete_item"
+        android:id="@+id/detail_delete_item"
         android:title="Delete"
         app:showAsAction="never"/>
 

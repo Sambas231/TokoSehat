@@ -22,4 +22,8 @@
     <string name="delete">Delete</string>
 
     <string name="cancel">Cancel</string>
+    
+    <string name="status_available">Available</string>
+
+    <string name="status_out_of_stock">Out of stock</string>
 </resources>

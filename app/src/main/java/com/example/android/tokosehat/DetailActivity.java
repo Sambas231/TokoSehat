@@ -28,6 +28,8 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     private Uri uri;
     private static final int PET_LOADER = 0;
 
+    private String currName;
+
     private TextView mName;
     private TextView mDiseases;
     private TextView mPrice;
@@ -45,7 +47,8 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
         uri = getIntent().getData();
 
-        getLoaderManager().initLoader(PET_LOADER, null, this);
+        getLoaderManager().initLoader(PET_LOADER, null, (android.app.LoaderManager.LoaderCallbacks<Cursor>) this);
+        setTitle(currName);
     }
 
 
@@ -125,7 +128,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             int priceIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_PRICE);
             int statusIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_STATUS);
 
-            String currName = cursor.getString(nameIndex);
+            currName = cursor.getString(nameIndex);
             String currDiseases = cursor.getString(diseasesIndex);
             String currPrice = String.valueOf(cursor.getString(priceIndex));
             String currStatus = cursor.getString(statusIndex);
@@ -134,6 +137,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             mDiseases.setText(currDiseases);
             mPrice.setText(currPrice);
             mStatus.setText(currStatus);
+
         }
     }
 

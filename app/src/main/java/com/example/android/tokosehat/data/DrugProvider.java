@@ -110,7 +110,7 @@ public class DrugProvider extends ContentProvider {
             throw new IllegalArgumentException("Please insert valid price");
         }
 
-        Integer status = values.getAsInteger(DrugEntry.COLUMN_DRUG_STATUS);
+        String status = values.getAsString(DrugEntry.COLUMN_DRUG_STATUS);
         if (status == null || !DrugEntry.isValidStatus(status)) {
             throw new IllegalArgumentException("Please choose the status");
         }
@@ -204,7 +204,7 @@ public class DrugProvider extends ContentProvider {
         }
         
         if (values.containsKey(DrugEntry.COLUMN_DRUG_STATUS)) {
-            Integer status = values.getAsInteger(DrugEntry.COLUMN_DRUG_STATUS);
+            String status = values.getAsString(DrugEntry.COLUMN_DRUG_STATUS);
             
             if (status == null || !DrugEntry.isValidStatus(status)) {
                 throw new IllegalArgumentException("Please choose the right option");
