@@ -1,4 +1,144 @@
 package com.example.android.tokosehat;
 
-public class DetailActivity {
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.CursorAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.example.android.tokosehat.data.DrugContract.DrugEntry;
+
+import com.example.android.tokosehat.data.DrugContract;
+
+import org.w3c.dom.Text;
+
+public class DetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+
+    private Uri uri;
+    private static final int PET_LOADER = 0;
+
+    private TextView mName;
+    private TextView mDiseases;
+    private TextView mPrice;
+    private TextView mStatus;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_detail);
+
+        mName = (TextView) findViewById(R.id.detail_name);
+        mDiseases = (TextView) findViewById(R.id.detail_diseases);
+        mPrice = (TextView) findViewById(R.id.detail_price_text);
+        mStatus = (TextView) findViewById(R.id.detail_status);
+
+        uri = getIntent().getData();
+
+        getLoaderManager().initLoader(PET_LOADER, null, this);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detail, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.editor_action_delete_item:
+                showDeleteConfirmationDialog();
+                return true;
+
+            case R.id.action_edit_item:
+                Intent intent = new Intent(DetailActivity.this, EditorActivity.class);
+                intent.setData(uri);
+                startActivity(intent);
+                return true;
+        }
+        return super.onContextItemSelected(item);
+    }
+
+
+
+    private void deleteDrug() {
+        if (uri != null) {
+            int rows = getContentResolver().delete(uri, null, null);
+
+            if (rows != 0) {
+                Toast.makeText(this, "Drug deleted", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(this, "Error with deleting", Toast.LENGTH_SHORT).show();
+            }
+        }
+        finish();
+    }
+
+    private void showDeleteConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.delete_dialog_msg);
+        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                deleteDrug();
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (dialogInterface != null) {
+                    dialogInterface.dismiss();
+                }
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    @NonNull
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, @Nullable Bundle bundle) {
+        String[] projection = new String[] {DrugEntry._ID, DrugEntry.COLUMN_DRUG_NAME, DrugEntry.COLUMN_DRUG_DISEASES, DrugEntry.COLUMN_DRUG_PRICE, DrugEntry.COLUMN_DRUG_STATUS};
+        return new CursorLoader(this, uri, projection, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
+        if (cursor.moveToFirst()) {
+
+            int nameIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_NAME);
+            int diseasesIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_DISEASES);
+            int priceIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_PRICE);
+            int statusIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_STATUS);
+
+            String currName = cursor.getString(nameIndex);
+            String currDiseases = cursor.getString(diseasesIndex);
+            String currPrice = String.valueOf(cursor.getString(priceIndex));
+            String currStatus = cursor.getString(statusIndex);
+
+            mName.setText(currName);
+            mDiseases.setText(currDiseases);
+            mPrice.setText(currPrice);
+            mStatus.setText(currStatus);
+        }
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+        loader.reset();
+    }
 }

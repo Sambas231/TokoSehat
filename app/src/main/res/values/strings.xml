@@ -16,4 +16,10 @@
     <string name="hint_price">Price</string>
 
     <string name="hint_diseases">Diseases</string>
+
+    <string name="delete_dialog_msg">Delete this drug?</string>
+
+    <string name="delete">Delete</string>
+
+    <string name="cancel">Cancel</string>
 </resources>

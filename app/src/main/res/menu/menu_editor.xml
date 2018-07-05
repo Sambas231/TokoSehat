@@ -11,8 +11,7 @@
         app:showAsAction="always"/>
 
     <item
-        android:id="@+id/action_delete_item"
+        android:id="@+id/editor_action_delete_item"
         android:title="Delete"
         app:showAsAction="never"/>
-
 </menu>
