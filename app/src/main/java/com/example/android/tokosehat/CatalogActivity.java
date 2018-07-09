@@ -1,19 +1,15 @@
 package com.example.android.tokosehat;
 
+import android.app.LoaderManager;
 import android.content.ContentUris;
+import android.content.ContentValues;
+import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.UriMatcher;
+import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
-import android.sax.StartElementListener;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.widget.CursorAdapter;
-import android.support.v4.content.Loader;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -64,27 +60,25 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         drugCursorAdapter = new DrugCursorAdapter(this, null);
         listView.setAdapter(drugCursorAdapter);
 
-        getLoaderManager().initLoader(PET_LOADER, null, (android.app.LoaderManager.LoaderCallbacks<Cursor>) this);
+        getLoaderManager().initLoader(PET_LOADER, null, this);
     }
 
 
-
-
-
-    @NonNull
     @Override
-    public Loader<Cursor> onCreateLoader(int i, @Nullable Bundle bundle) {
+    public android.content.Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         String[] projection = new String[] {DrugEntry._ID, DrugEntry.COLUMN_DRUG_NAME, DrugEntry.COLUMN_DRUG_DISEASES, DrugEntry.COLUMN_DRUG_PRICE, DrugEntry.COLUMN_DRUG_STATUS};
         return new CursorLoader(this, DrugEntry.CONTENT_URI, projection, null, null, null);
     }
 
     @Override
-    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
+    public void onLoadFinished(android.content.Loader<Cursor> loader, Cursor cursor) {
         drugCursorAdapter.swapCursor(cursor);
     }
 
     @Override
-    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+    public void onLoaderReset(android.content.Loader<Cursor> loader) {
         drugCursorAdapter.swapCursor(null);
     }
+
+
 }
