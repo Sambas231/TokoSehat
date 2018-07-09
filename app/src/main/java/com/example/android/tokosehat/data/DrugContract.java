@@ -17,7 +17,7 @@ public class DrugContract {
 
   public static final String CONTENT_AUTHORITY = "com.example.android.tokosehat";
   public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
-  public static final String PATH_DRUG = "drugs";
+  public static final String PATH_DRUG = "tokosehat";
 
   /** Inner class that defines constant values for the drugs database table */
   public static final class DrugEntry implements BaseColumns {

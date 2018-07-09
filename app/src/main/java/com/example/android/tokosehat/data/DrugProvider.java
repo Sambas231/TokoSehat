@@ -87,14 +87,14 @@ public class DrugProvider extends ContentProvider {
 
         switch (match) {
             case DRUGS:
-                return insert(uri, contentValues);
+                return insertDrug(uri, contentValues);
             default :
                 throw new IllegalArgumentException("Insertion is not supported for " + uri);
 
         }
     }
 
-    private Uri insertPet (Uri uri, ContentValues values) {
+    private Uri insertDrug (Uri uri, ContentValues values) {
         String name = values.getAsString(DrugEntry.COLUMN_DRUG_NAME);
         if (name == null) {
             throw new IllegalArgumentException("Please insert valid name");
