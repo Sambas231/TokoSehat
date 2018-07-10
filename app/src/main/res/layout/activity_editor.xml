@@ -35,7 +35,7 @@
                 android:id="@+id/editor_edit_diseases"
                 style="@style/editor_edit_text"
                 android:hint="@string/hint_diseases"
-                android:inputType="textCapWords" />
+                android:inputType="textCapWords|textMultiLine" />
 
         </LinearLayout>
     </LinearLayout>
