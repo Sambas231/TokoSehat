@@ -39,6 +39,13 @@ public class DrugCursorAdapter extends CursorAdapter {
         int price = cursor.getInt(priceIndex);
         String diseases = cursor.getString(diseasesIndex);
 
+        if (status.equals(DrugEntry.STATUS_AVAILABLE)) {
+            statusView.setBackgroundColor(view.getResources().getColor(R.color.status_available));
+        }
+        else {
+            statusView.setBackgroundColor(view.getResources().getColor(R.color.status_out_of_stock));
+        }
+
         nameView.setText(name);
         statusView.setText(status);
         priceView.setText(String.valueOf(price));

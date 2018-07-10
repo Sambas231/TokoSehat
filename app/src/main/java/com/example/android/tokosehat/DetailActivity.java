@@ -59,8 +59,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item) {
-
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_edit_item:
                 Intent intent = new Intent(DetailActivity.this, EditorActivity.class);
@@ -68,7 +67,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                 startActivity(intent);
                 return true;
         }
-        return super.onContextItemSelected(item);
+        return super.onOptionsItemSelected(item);
     }
 
     @NonNull
