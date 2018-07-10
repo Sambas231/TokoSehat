@@ -10,9 +10,6 @@
         android:title="Edit"
         app:showAsAction="never"/>
 
-    <item
-        android:id="@+id/detail_delete_item"
-        android:title="Delete"
-        app:showAsAction="never"/>
+
 
 </menu>

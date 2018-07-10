@@ -1,6 +1,9 @@
 package com.example.android.tokosehat;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,7 +12,11 @@ import android.support.annotation.Nullable;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,7 +27,6 @@ import android.widget.Toast;
 
 import com.example.android.tokosehat.data.DrugContract.DrugEntry;
 
-import com.example.android.tokosehat.data.DrugContract;
 
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
@@ -43,6 +49,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private static final int DRUG_LOADER = 0;
     private Uri mCurrentUri;
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +57,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         mCurrentUri = getIntent().getData();
 
-        getLoaderManager().initLoader(DRUG_LOADER, null, this);
-
+        if (mCurrentUri == null) {
+            invalidateOptionsMenu();
+        }
+        else {
+            getLoaderManager().initLoader(DRUG_LOADER, null, this);
+        }
         mName = (EditText) findViewById(R.id.editor_edit_name);
         mDiseases = (EditText) findViewById(R.id.editor_edit_diseases);
         mPrice = (EditText) findViewById(R.id.editor_price_edit_text);
@@ -62,21 +73,15 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mPrice.setOnTouchListener(onTouchListener);
         mStatusSpinner.setOnTouchListener(onTouchListener);
 
-
-        setupSpinner();
-    }
-
-    private void setupSpinner() {
         ArrayAdapter statusSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.array_status_options, android.R.layout.simple_spinner_item);
-
         statusSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-
         mStatusSpinner.setAdapter(statusSpinnerAdapter);
 
-        mStatusSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mStatusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                String selection = (String) adapterView.getItemAtPosition(position);
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selection = (String) adapterView.getItemAtPosition(i);
+
                 if (!selection.isEmpty()) {
                     if (selection.equals(getString(R.string.status_available))) {
                         mStatus = DrugEntry.STATUS_AVAILABLE;
@@ -87,16 +92,22 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 }
             }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                mStatus = DrugEntry.STATUS_OUT_OF_STOCK;
+            }
         });
     }
 
-    private void savePet() {
+
+
+    private void saveDrug() {
         String nameString = mName.getText().toString().trim();
         String diseasesString = mDiseases.getText().toString().trim();
         String priceString = mPrice.getText().toString().trim();
 
         if (mCurrentUri == null && nameString.isEmpty() && diseasesString.isEmpty() &&
-                priceString.isEmpty() && mStatus == DrugEntry.STATUS_OUT_OF_STOCK) {
+                priceString.isEmpty() && mStatus.equals(DrugEntry.STATUS_OUT_OF_STOCK)) {
             return;
         }
 
@@ -134,19 +145,170 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_editor, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+
+        if (mCurrentUri == null) {
+            MenuItem item = menu.findItem(R.id.editor_action_delete_item);
+            item.setVisible(false);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_save_item:
+                saveDrug();
+                finish();
+                return true;
+
+            case R.id.editor_action_delete_item:
+                showDeleteConfirmationDialog();
+                return true;
+
+            case android.R.id.home:
+                if (!mDrugHasChanged) {
+                    NavUtils.navigateUpFromSameTask(EditorActivity.this);
+                    return true;
+                }
+
+                DialogInterface.OnClickListener discardButtonClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        NavUtils.navigateUpFromSameTask(EditorActivity.this);
+                    }
+                };
+                showUnsavedChangesDialog(discardButtonClickListener);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showUnsavedChangesDialog(DialogInterface.OnClickListener discardButtonClickListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Discard Changes?");
+        builder.setPositiveButton("Discard", discardButtonClickListener);
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (dialogInterface != null) {
+                    dialogInterface.dismiss();
+                }
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!mDrugHasChanged) {
+            super.onBackPressed();
+            return;
+        }
+
+        DialogInterface.OnClickListener discardClickButtonListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        };
+        showUnsavedChangesDialog(discardClickButtonListener);
+    }
+
+    private void deleteDrug() {
+        if (mCurrentUri != null) {
+            int rowsDeleted = getContentResolver().delete(mCurrentUri, null ,null);
+
+            if (rowsDeleted == 0) {
+                Toast.makeText(EditorActivity.this, "Delete drug failed", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(EditorActivity.this, "Delete drug success", Toast.LENGTH_SHORT).show();
+            }
+        }
+        finish();
+    }
+
+    private void showDeleteConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Delete this drug?");
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                deleteDrug();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (dialogInterface != null) {
+                    dialogInterface.dismiss();
+                }
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int i, @Nullable Bundle bundle) {
-        return null;
+        String[] projection = {DrugEntry._ID, DrugEntry.COLUMN_DRUG_NAME, DrugEntry.COLUMN_DRUG_DISEASES, DrugEntry.COLUMN_DRUG_PRICE, DrugEntry.COLUMN_DRUG_STATUS};
+
+        return new CursorLoader(this, mCurrentUri, projection, null, null, null);
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
+        if (cursor == null || cursor.getCount() < 1) {
+            return;
+        }
 
+        if (cursor.moveToFirst()) {
+            int nameIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_NAME);
+            int diseasesIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_DISEASES);
+            int priceIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_PRICE);
+            int statusIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_STATUS);
+
+            String name = cursor.getString(nameIndex);
+            String diseases = cursor.getString(diseasesIndex);
+            String status = cursor.getString(statusIndex);
+            int price = cursor.getInt(priceIndex);
+
+            mName.setText(name);
+            mDiseases.setText(diseases);
+            mPrice.setText(String.valueOf(price));
+
+            switch (status) {
+                case DrugEntry.STATUS_AVAILABLE:
+                    mStatusSpinner.setSelection(1);
+                    break;
+
+                case DrugEntry.STATUS_OUT_OF_STOCK:
+                    mStatusSpinner.setSelection(0);
+                    break;
+
+            }
+
+        }
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
-
+        mName.setText("");
+        mDiseases.setText("");
+        mPrice.setText("");
+        mStatusSpinner.setSelection(0);
     }
 }

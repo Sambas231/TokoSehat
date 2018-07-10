@@ -62,10 +62,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     public boolean onContextItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.editor_action_delete_item:
-                showDeleteConfirmationDialog();
-                return true;
-
             case R.id.action_edit_item:
                 Intent intent = new Intent(DetailActivity.this, EditorActivity.class);
                 intent.setData(uri);
@@ -73,43 +69,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                 return true;
         }
         return super.onContextItemSelected(item);
-    }
-
-
-
-    private void deleteDrug() {
-        if (uri != null) {
-            int rows = getContentResolver().delete(uri, null, null);
-
-            if (rows != 0) {
-                Toast.makeText(this, "Drug deleted", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                Toast.makeText(this, "Error with deleting", Toast.LENGTH_SHORT).show();
-            }
-        }
-        finish();
-    }
-
-    private void showDeleteConfirmationDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.delete_dialog_msg);
-        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                deleteDrug();
-            }
-        });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (dialogInterface != null) {
-                    dialogInterface.dismiss();
-                }
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
     }
 
     @NonNull
@@ -130,7 +89,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
             currName = cursor.getString(nameIndex);
             String currDiseases = cursor.getString(diseasesIndex);
-            String currPrice = String.valueOf(cursor.getString(priceIndex));
+            String currPrice = String.valueOf(cursor.getInt(priceIndex));
             String currStatus = cursor.getString(statusIndex);
 
             mName.setText(currName);
