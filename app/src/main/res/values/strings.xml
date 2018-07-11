@@ -9,7 +9,7 @@
 
     <string name="category_status">Status</string>
 
-    <string name="currency_rupiah">Rp</string>
+    <string name="currency_rupiah">Rp. </string>
 
     <string name="hint_name">Name</string>
 
