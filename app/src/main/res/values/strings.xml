@@ -26,4 +26,8 @@
     <string name="status_available">Available</string>
 
     <string name="status_out_of_stock">Out of stock</string>
+
+    <string name="category_name">Name</string>
+
+    <string name="category_diseases">Diseases</string>
 </resources>
