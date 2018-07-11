@@ -66,8 +66,46 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                 intent.setData(uri);
                 startActivity(intent);
                 return true;
+
+            case R.id.action_delete_item:
+                showDeleteConfirmationDialog();
+                return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void deleteDrug() {
+        int rowsDeleted = getContentResolver().delete(uri, null, null);
+
+        if (rowsDeleted == 0) {
+            Toast.makeText(DetailActivity.this, "Delete drug failed", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(DetailActivity.this, "Delete drug success", Toast.LENGTH_SHORT).show();
+        }
+        finish();
+    }
+
+    private void showDeleteConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Delete this drug?");
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                deleteDrug();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (dialogInterface != null) {
+                    dialogInterface.dismiss();
+                }
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     @NonNull

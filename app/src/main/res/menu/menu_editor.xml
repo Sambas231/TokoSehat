@@ -10,8 +10,4 @@
         android:icon="@drawable/ic_done"
         app:showAsAction="always"/>
 
-    <item
-        android:id="@+id/editor_action_delete_item"
-        android:title="Delete"
-        app:showAsAction="never"/>
 </menu>

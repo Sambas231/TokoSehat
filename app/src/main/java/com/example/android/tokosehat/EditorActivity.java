@@ -57,10 +57,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         mCurrentUri = getIntent().getData();
 
-        if (mCurrentUri == null) {
-            invalidateOptionsMenu();
-        }
-        else {
+        if (mCurrentUri != null) {
             getLoaderManager().initLoader(DRUG_LOADER, null, this);
         }
         mName = (EditText) findViewById(R.id.editor_edit_name);
@@ -153,26 +150,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-
-        if (mCurrentUri == null) {
-            MenuItem item = menu.findItem(R.id.editor_action_delete_item);
-            item.setVisible(false);
-        }
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save_item:
                 saveDrug();
                 finish();
-                return true;
-
-            case R.id.editor_action_delete_item:
-                showDeleteConfirmationDialog();
                 return true;
 
             case android.R.id.home:
@@ -223,42 +205,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             }
         };
         showUnsavedChangesDialog(discardClickButtonListener);
-    }
-
-    private void deleteDrug() {
-        if (mCurrentUri != null) {
-            int rowsDeleted = getContentResolver().delete(mCurrentUri, null ,null);
-
-            if (rowsDeleted == 0) {
-                Toast.makeText(EditorActivity.this, "Delete drug failed", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                Toast.makeText(EditorActivity.this, "Delete drug success", Toast.LENGTH_SHORT).show();
-            }
-        }
-        finish();
-    }
-
-    private void showDeleteConfirmationDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Delete this drug?");
-        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                deleteDrug();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (dialogInterface != null) {
-                    dialogInterface.dismiss();
-                }
-            }
-        });
-
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
     }
 
     @NonNull
