@@ -292,11 +292,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
             switch (status) {
                 case DrugEntry.STATUS_AVAILABLE:
-                    mStatusSpinner.setSelection(1);
+                    mStatusSpinner.setSelection(0);
                     break;
 
                 case DrugEntry.STATUS_OUT_OF_STOCK:
-                    mStatusSpinner.setSelection(0);
+                    mStatusSpinner.setSelection(1);
                     break;
 
             }
