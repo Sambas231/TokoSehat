@@ -37,6 +37,7 @@ public class DrugContract {
     public static final String COLUMN_DRUG_DISEASES = "diseases";
     public static final String COLUMN_DRUG_PRICE = "price";
     public static final String COLUMN_DRUG_STATUS = "status";
+    public static final String COLUMN_DRUG_DOSAGE = "dosage";
 
     public static final String STATUS_AVAILABLE = "Available";
     public static final String STATUS_OUT_OF_STOCK = "Out of stock";

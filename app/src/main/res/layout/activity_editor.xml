@@ -59,15 +59,15 @@
             <TextView
                 android:id="@+id/editor_rupiah"
                 style="@style/currency_rupiah"
-                android:paddingTop="10dp"
                 android:paddingRight="5dp"
+                android:paddingTop="10dp"
                 android:text="@string/currency_rupiah" />
 
             <EditText
                 android:id="@+id/editor_price_edit_text"
                 style="@style/editor_edit_number"
-                android:hint="@string/hint_price"
                 android:layout_toRightOf="@id/editor_rupiah"
+                android:hint="@string/hint_price"
                 android:inputType="number" />
         </RelativeLayout>
     </LinearLayout>
