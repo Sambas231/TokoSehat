@@ -57,9 +57,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         mCurrentUri = getIntent().getData();
 
-        if (mCurrentUri != null) {
-            getLoaderManager().initLoader(DRUG_LOADER, null, this);
-        }
+        getLoaderManager().initLoader(DRUG_LOADER, null, this);
+
         mName = (EditText) findViewById(R.id.editor_edit_name);
         mDiseases = (EditText) findViewById(R.id.editor_edit_diseases);
         mPrice = (EditText) findViewById(R.id.editor_price_edit_text);
@@ -103,11 +102,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         String diseasesString = mDiseases.getText().toString().trim();
         String priceString = mPrice.getText().toString().trim();
 
-        if (mCurrentUri == null && nameString.isEmpty() && diseasesString.isEmpty() &&
-                priceString.isEmpty() && mStatus.equals(DrugEntry.STATUS_OUT_OF_STOCK)) {
-            return;
-        }
-
         ContentValues values = new ContentValues();
         values.put(DrugEntry.COLUMN_DRUG_NAME, nameString);
         values.put(DrugEntry.COLUMN_DRUG_DISEASES, diseasesString);
@@ -119,26 +113,16 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         }
         values.put(DrugEntry.COLUMN_DRUG_PRICE, price);
 
-        if (mCurrentUri == null) {
-            Uri newUri = getContentResolver().insert(DrugEntry.CONTENT_URI, values);
 
-            if (newUri == null) {
-                Toast.makeText(EditorActivity.this, "Insert drug failed", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                Toast.makeText(EditorActivity.this, "Insert drug success", Toast.LENGTH_SHORT).show();
-            }
+        int rowsAffected = getContentResolver().update(mCurrentUri, values, null, null);
+
+        if (rowsAffected == 0) {
+            Toast.makeText(EditorActivity.this, "Update drug failed", Toast.LENGTH_SHORT).show();
         }
         else {
-            int rowsAffected = getContentResolver().update(mCurrentUri, values, null, null);
-
-            if (rowsAffected == 0) {
-                Toast.makeText(EditorActivity.this, "Update drug failed", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                Toast.makeText(EditorActivity.this, "Update drug success", Toast.LENGTH_SHORT).show();
-            }
+            Toast.makeText(EditorActivity.this, "Update drug success", Toast.LENGTH_SHORT).show();
         }
+
 
     }
 

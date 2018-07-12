@@ -9,6 +9,8 @@
 
     <string name="category_status">Status</string>
 
+    <string name="category_type">Type</string>
+
     <string name="currency_rupiah">Rp. </string>
 
     <string name="hint_name">Name</string>
@@ -30,4 +32,8 @@
     <string name="category_name">Name</string>
 
     <string name="category_diseases">Diseases</string>
+
+    <string name="category_dosage">Dosage</string>
+
+    <string name="category_side_effect">Side Effect</string>
 </resources>
