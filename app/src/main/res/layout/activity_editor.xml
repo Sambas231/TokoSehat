@@ -68,7 +68,7 @@
                 style="@style/editor_edit_number"
                 android:hint="@string/hint_price"
                 android:layout_toRightOf="@id/editor_rupiah"
-                android:inputType="textCapWords" />
+                android:inputType="number" />
         </RelativeLayout>
     </LinearLayout>
 
