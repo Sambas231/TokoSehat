@@ -27,7 +27,7 @@ public class DrugDbHelper extends SQLiteOpenHelper {
                 + DrugEntry.COLUMN_DRUG_STATUS + " TEXT NOT NULL, "
                 + DrugEntry.COLUMN_DRUG_DOSAGE + " TEXT, "
                 + DrugEntry.COLUMN_DRUG_TYPE + " TEXT NOT NULL, "
-                + DrugEntry.COLUMN_DRUG_SIDE_EFFECT + " TEXT DEFAULT '');";
+                + DrugEntry.COLUMN_DRUG_SIDE_EFFECT + " TEXT);";
 
         sqLiteDatabase.execSQL(SQL_CREATE_TABLE);
     }

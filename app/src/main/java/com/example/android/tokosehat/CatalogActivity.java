@@ -10,6 +10,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -54,6 +56,21 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_catalog, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_catalog_refresh) {
+            defaultInsert();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private boolean isDbEmpty() {
         String[] projection = new String[] {DrugEntry._ID,
                 DrugEntry.COLUMN_DRUG_NAME,
@@ -74,7 +91,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
     private void defaultInsert() {
         ArrayList<Drug> drugArrayList = new ArrayList<>();
-        drugArrayList.add(new Drug("asdf", "kalsdjflasd", 5666, "dklasjf", "alskdjfl", "askdjfkl", "ldsj"));
+        drugArrayList.add(new Drug("asdf", "kalsdjflasd", 879, "dklasjf", "alskdjfl", "askdjfkl", "ldsj"));
 
         int size = drugArrayList.size();
 
