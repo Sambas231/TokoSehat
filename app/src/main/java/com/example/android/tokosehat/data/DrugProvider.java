@@ -115,6 +115,21 @@ public class DrugProvider extends ContentProvider {
             throw new IllegalArgumentException("Please choose the status");
         }
 
+        String type = values.getAsString(DrugEntry.COLUMN_DRUG_TYPE);
+        if (type == null) {
+            throw new IllegalArgumentException("Please insert a valid type");
+        }
+
+        String dosage = values.getAsString(DrugEntry.COLUMN_DRUG_DOSAGE);
+        if (dosage == null) {
+            throw new IllegalArgumentException("Please insert valid dosages");
+        }
+
+        String sideEffect = values.getAsString(DrugEntry.COLUMN_DRUG_SIDE_EFFECT);
+        if (sideEffect == null) {
+            throw new IllegalArgumentException("Please insert valid side effects");
+        }
+
         SQLiteDatabase db = drugDbHelper.getWritableDatabase();
         
         long id = db.insert(DrugEntry.TABLE_NAME, null, values);
@@ -208,6 +223,30 @@ public class DrugProvider extends ContentProvider {
             
             if (status == null || !DrugEntry.isValidStatus(status)) {
                 throw new IllegalArgumentException("Please choose the right option");
+            }
+        }
+
+        if (values.containsKey(DrugEntry.COLUMN_DRUG_TYPE)) {
+            String type = values.getAsString(DrugEntry.COLUMN_DRUG_TYPE);
+
+            if (type == null) {
+                throw new IllegalArgumentException("Drug need a valid type");
+            }
+        }
+
+        if (values.containsKey(DrugEntry.COLUMN_DRUG_DOSAGE)) {
+            String dosage = values.getAsString(DrugEntry.COLUMN_DRUG_DOSAGE);
+
+            if (dosage == null) {
+                throw new IllegalArgumentException("Drug need valid dosage");
+            }
+        }
+
+        if (values.containsKey(DrugEntry.COLUMN_DRUG_SIDE_EFFECT)) {
+            String sideEffect = values.getAsString(DrugEntry.COLUMN_DRUG_SIDE_EFFECT);
+
+            if (sideEffect == null) {
+                throw new IllegalArgumentException("Drug need valid side effect");
             }
         }
         

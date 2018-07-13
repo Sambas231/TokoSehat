@@ -52,7 +52,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         uri = getIntent().getData();
 
         getLoaderManager().initLoader(PET_LOADER, null,  this);
-        setTitle("Edit a drug");
     }
 
 
@@ -145,6 +144,13 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             String currType = cursor.getString(typeIndex);
             String currDosage = cursor.getString(dosageIndex);
             String currSideEffect = cursor.getString(sideEffectIndex);
+
+            if (currDosage.isEmpty()) {
+                currDosage = "No dosage for this drug.";
+            }
+            if (currSideEffect.isEmpty()) {
+                currSideEffect = "No side effect for this drug.";
+            }
 
             mName.setText(currName);
             mDiseases.setText(currDiseases);

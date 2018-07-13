@@ -20,10 +20,12 @@ import com.example.android.tokosehat.data.DrugContract.DrugEntry;
 
 import com.example.android.tokosehat.data.DrugDbHelper;
 
+import java.util.ArrayList;
+
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int PET_LOADER = 0;
-
+    private Uri uri;
     DrugCursorAdapter drugCursorAdapter;
 
     @Override
@@ -33,12 +35,19 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
         ListView listView = (ListView) findViewById(R.id.view);
 
+        if (isDbEmpty()) {
+
+        }
+        else {
+
+        }
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Intent intent = new Intent(CatalogActivity.this, DetailActivity.class);
 
-                Uri uri = ContentUris.withAppendedId(DrugEntry.CONTENT_URI, id);
+                uri = ContentUris.withAppendedId(DrugEntry.CONTENT_URI, id);
                 intent.setData(uri);
 
                 startActivity(intent);
@@ -51,6 +60,29 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         getLoaderManager().initLoader(PET_LOADER, null, this);
     }
 
+
+    private boolean isDbEmpty() {
+        String[] projection = new String[] {DrugEntry._ID,
+                DrugEntry.COLUMN_DRUG_NAME,
+                DrugEntry.COLUMN_DRUG_DISEASES,
+                DrugEntry.COLUMN_DRUG_PRICE,
+                DrugEntry.COLUMN_DRUG_STATUS,
+                DrugEntry.COLUMN_DRUG_TYPE,
+                DrugEntry.COLUMN_DRUG_DOSAGE,
+                DrugEntry.COLUMN_DRUG_SIDE_EFFECT};
+        Cursor cursor = getContentResolver().query(DrugEntry.CONTENT_URI, projection, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            return true;
+        }
+        return false;
+
+    }
+
+    private void defaultInsert() {
+        ArrayList<String> namesList = new ArrayList<>();
+        namesList.add()
+    }
 
     @Override
     public android.content.Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
