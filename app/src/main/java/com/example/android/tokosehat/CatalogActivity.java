@@ -35,13 +35,6 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
         ListView listView = (ListView) findViewById(R.id.view);
 
-        if (isDbEmpty()) {
-
-        }
-        else {
-
-        }
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -80,8 +73,23 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     }
 
     private void defaultInsert() {
-        ArrayList<String> namesList = new ArrayList<>();
-        namesList.add()
+        ArrayList<Drug> drugArrayList = new ArrayList<>();
+        drugArrayList.add(new Drug("asdf", "kalsdjflasd", 5666, "dklasjf", "alskdjfl", "askdjfkl", "ldsj"));
+
+        int size = drugArrayList.size();
+
+        for (int i = 0; i < size; i++) {
+            ContentValues values = new ContentValues();
+            values.put(DrugEntry.COLUMN_DRUG_NAME, drugArrayList.get(i).getName());
+            values.put(DrugEntry.COLUMN_DRUG_DISEASES, drugArrayList.get(i).getDiseases());
+            values.put(DrugEntry.COLUMN_DRUG_PRICE, drugArrayList.get(i).getPrice());
+            values.put(DrugEntry.COLUMN_DRUG_STATUS, drugArrayList.get(i).getStatus());
+            values.put(DrugEntry.COLUMN_DRUG_TYPE, drugArrayList.get(i).getType());
+            values.put(DrugEntry.COLUMN_DRUG_DOSAGE, drugArrayList.get(i).getDosages());
+            values.put(DrugEntry.COLUMN_DRUG_SIDE_EFFECT, drugArrayList.get(i).getSideEffects());
+
+            getContentResolver().insert(DrugEntry.CONTENT_URI, values);
+        }
     }
 
     @Override
