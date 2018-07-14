@@ -69,10 +69,29 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_refresh:
-                defaultInsert();
+                if (!isDbEmpty()) {
+                    insertDrug();
+                }
+                else {
+                    defaultInsert();
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean isDbEmpty() {
+        String[] projection = new String[] {DrugEntry._ID,
+                DrugEntry.COLUMN_DRUG_NAME,
+                DrugEntry.COLUMN_DRUG_DISEASES,
+                DrugEntry.COLUMN_DRUG_PRICE,
+                DrugEntry.COLUMN_DRUG_STATUS};
+        Cursor cursor = getContentResolver().query(DrugEntry.CONTENT_URI, projection, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            return false;
+        }
+        return true;
     }
 
     private void insertDrug() {
