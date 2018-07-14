@@ -85,7 +85,10 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 DrugEntry.COLUMN_DRUG_NAME,
                 DrugEntry.COLUMN_DRUG_DISEASES,
                 DrugEntry.COLUMN_DRUG_PRICE,
-                DrugEntry.COLUMN_DRUG_STATUS};
+                DrugEntry.COLUMN_DRUG_STATUS,
+                DrugEntry.COLUMN_DRUG_TYPE,
+                DrugEntry.COLUMN_DRUG_DOSAGE,
+                DrugEntry.COLUMN_DRUG_SIDE_EFFECTS};
         Cursor cursor = getContentResolver().query(DrugEntry.CONTENT_URI, projection, null, null, null);
 
         if (cursor.moveToFirst()) {
@@ -100,6 +103,9 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         values.put(DrugEntry.COLUMN_DRUG_DISEASES, "Demam, Nyeri");
         values.put(DrugEntry.COLUMN_DRUG_PRICE, 7000);
         values.put(DrugEntry.COLUMN_DRUG_STATUS, DrugEntry.STATUS_AVAILABLE);
+        values.put(DrugEntry.COLUMN_DRUG_TYPE, DrugEntry.TYPE_TABLET);
+        values.put(DrugEntry.COLUMN_DRUG_DOSAGE, "3 * 1");
+        values.put(DrugEntry.COLUMN_DRUG_SIDE_EFFECTS, "Ngantuk");
 
         Uri temp = getContentResolver().insert(DrugEntry.CONTENT_URI, values);
 
@@ -113,8 +119,8 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
     private void defaultInsert() {
         ArrayList<Drug> drugArrayList = new ArrayList<>();
-        drugArrayList.add(new Drug("Nufadol", "Demam, Nyeri kepala", 7000, DrugEntry.STATUS_AVAILABLE));
-        drugArrayList.add(new Drug("Aknil", "Demam, Nyeri kepala, Nyeri pada Gigi", 7000, DrugEntry.STATUS_AVAILABLE));
+        drugArrayList.add(new Drug("Nufadol", "Demam, Nyeri kepala", 7000, DrugEntry.STATUS_AVAILABLE, DrugEntry.TYPE_TABLET, "3 * 1", "Ngantuk"));
+        drugArrayList.add(new Drug("Aknil", "Demam, Nyeri kepala, Nyeri pada Gigi", 7000, DrugEntry.STATUS_AVAILABLE, DrugEntry.TYPE_TABLET, "3 * 1", "Ngantuk"));
 
         int size = drugArrayList.size();
         for (int i = 0; i < size; i++) {
@@ -123,6 +129,9 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
             values.put(DrugEntry.COLUMN_DRUG_DISEASES, drugArrayList.get(i).getDiseases());
             values.put(DrugEntry.COLUMN_DRUG_PRICE, drugArrayList.get(i).getPrice());
             values.put(DrugEntry.COLUMN_DRUG_STATUS, drugArrayList.get(i).getStatus());
+            values.put(DrugEntry.COLUMN_DRUG_TYPE, drugArrayList.get(i).getType());
+            values.put(DrugEntry.COLUMN_DRUG_DOSAGE, drugArrayList.get(i).getDosage());
+            values.put(DrugEntry.COLUMN_DRUG_SIDE_EFFECTS, drugArrayList.get(i).getSideEffect());
 
             getContentResolver().insert(DrugEntry.CONTENT_URI, values);
         }

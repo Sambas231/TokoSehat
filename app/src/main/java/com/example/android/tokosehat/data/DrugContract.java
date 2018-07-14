@@ -44,6 +44,10 @@ public class DrugContract {
     public static final String STATUS_AVAILABLE = "Available";
     public static final String STATUS_OUT_OF_STOCK = "Out of stock";
 
+    public static final String TYPE_TABLET = "Tablet";
+    public static final String TYPE_SIRUP = "Sirup";
+    public static final String TYPE_KAPSUL = "Kapsul";
+
     // TODO: make validation method for status
     protected static final boolean isValidStatus(String status) {
       if (status.equals(STATUS_AVAILABLE) || status.equals(STATUS_OUT_OF_STOCK)) {

@@ -5,12 +5,18 @@ public class Drug {
     private String diseases;
     private int price;
     private String status;
+    private String type;
+    private String dosage;
+    private String sideEffect;
 
-    public Drug(String name, String diseases, int price, String status) {
+    public Drug(String name, String diseases, int price, String status, String type, String dosage, String sideEffect) {
         this.name = name;
         this.diseases = diseases;
         this.price = price;
         this.status = status;
+        this.type = type;
+        this.dosage = dosage;
+        this.sideEffect = sideEffect;
     }
 
     public String getName() {
@@ -27,5 +33,17 @@ public class Drug {
 
     public String getStatus() {
         return status;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getDosage() {
+        return dosage;
+    }
+
+    public String getSideEffect() {
+        return sideEffect;
     }
 }
