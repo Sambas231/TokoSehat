@@ -31,15 +31,6 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
 
-        Button button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
-                startActivity(intent);
-            }
-        });
-
         ListView listView = (ListView) findViewById(R.id.view);
 
         View emptyView = findViewById(R.id.empty_view);

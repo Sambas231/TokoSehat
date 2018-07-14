@@ -37,15 +37,4 @@
 
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="16dp"
-        android:background="@drawable/button"
-        />
-
-
 </RelativeLayout>
