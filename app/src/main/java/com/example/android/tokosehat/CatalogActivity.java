@@ -16,15 +16,18 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.android.tokosehat.data.DrugContract;
 import com.example.android.tokosehat.data.DrugContract.DrugEntry;
 
 import com.example.android.tokosehat.data.DrugDbHelper;
 
+import java.util.ArrayList;
+
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private static final int PET_LOADER = 0;
+    private static final int DRUG_LOADER = 0;
 
     DrugCursorAdapter drugCursorAdapter;
 
@@ -53,7 +56,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         drugCursorAdapter = new DrugCursorAdapter(this, null);
         listView.setAdapter(drugCursorAdapter);
 
-        getLoaderManager().initLoader(PET_LOADER, null, this);
+        getLoaderManager().initLoader(DRUG_LOADER, null, this);
     }
 
     @Override
@@ -66,10 +69,45 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_refresh:
-
+                defaultInsert();
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void insertDrug() {
+        ContentValues values = new ContentValues();
+        values.put(DrugEntry.COLUMN_DRUG_NAME, "Paracetamol");
+        values.put(DrugEntry.COLUMN_DRUG_DISEASES, "Demam, Nyeri");
+        values.put(DrugEntry.COLUMN_DRUG_PRICE, 7000);
+        values.put(DrugEntry.COLUMN_DRUG_STATUS, DrugEntry.STATUS_AVAILABLE);
+
+        Uri temp = getContentResolver().insert(DrugEntry.CONTENT_URI, values);
+
+        if (temp == null) {
+            Toast.makeText(CatalogActivity.this, "Insert a drug failed", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(CatalogActivity.this, "Insert a drug success", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void defaultInsert() {
+        ArrayList<Drug> drugArrayList = new ArrayList<>();
+        drugArrayList.add(new Drug("Nufadol", "Demam, Nyeri kepala", 7000, DrugEntry.STATUS_AVAILABLE));
+        drugArrayList.add(new Drug("Aknil", "Demam, Nyeri kepala, Nyeri pada Gigi", 7000, DrugEntry.STATUS_AVAILABLE));
+
+        int size = drugArrayList.size();
+        for (int i = 0; i < size; i++) {
+            ContentValues values = new ContentValues();
+            values.put(DrugEntry.COLUMN_DRUG_NAME, drugArrayList.get(i).getName());
+            values.put(DrugEntry.COLUMN_DRUG_DISEASES, drugArrayList.get(i).getDiseases());
+            values.put(DrugEntry.COLUMN_DRUG_PRICE, drugArrayList.get(i).getPrice());
+            values.put(DrugEntry.COLUMN_DRUG_STATUS, drugArrayList.get(i).getStatus());
+
+            getContentResolver().insert(DrugEntry.CONTENT_URI, values);
+        }
+
     }
 
     @Override
