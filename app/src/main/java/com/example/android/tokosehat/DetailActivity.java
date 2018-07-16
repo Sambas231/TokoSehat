@@ -28,13 +28,12 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     private Uri uri;
     private static final int PET_LOADER = 0;
 
+    private String currName;
+
     private TextView mName;
     private TextView mDiseases;
     private TextView mPrice;
     private TextView mStatus;
-    private TextView mType;
-    private TextView mDosage;
-    private TextView mSideEffect;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,14 +44,11 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         mDiseases = (TextView) findViewById(R.id.detail_diseases);
         mPrice = (TextView) findViewById(R.id.detail_price_text);
         mStatus = (TextView) findViewById(R.id.detail_status);
-        mType = (TextView) findViewById(R.id.detail_type);
-        mDosage = (TextView) findViewById(R.id.detail_dosage);
-        mSideEffect = (TextView) findViewById(R.id.detail_side_effect);
 
         uri = getIntent().getData();
 
         getLoaderManager().initLoader(PET_LOADER, null,  this);
-        setTitle("Detail");
+        setTitle(currName);
     }
 
 
@@ -115,7 +111,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int i, @Nullable Bundle bundle) {
-        String[] projection = new String[] {DrugEntry._ID, DrugEntry.COLUMN_DRUG_NAME, DrugEntry.COLUMN_DRUG_DISEASES, DrugEntry.COLUMN_DRUG_PRICE, DrugEntry.COLUMN_DRUG_STATUS, DrugEntry.COLUMN_DRUG_TYPE, DrugEntry.COLUMN_DRUG_DOSAGE, DrugEntry.COLUMN_DRUG_SIDE_EFFECTS};
+        String[] projection = new String[] {DrugEntry._ID, DrugEntry.COLUMN_DRUG_NAME, DrugEntry.COLUMN_DRUG_DISEASES, DrugEntry.COLUMN_DRUG_PRICE, DrugEntry.COLUMN_DRUG_STATUS};
         return new CursorLoader(this, uri, projection, null, null, null);
     }
 
@@ -127,25 +123,17 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             int diseasesIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_DISEASES);
             int priceIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_PRICE);
             int statusIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_STATUS);
-            int typeIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_TYPE);
-            int dosageIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_DOSAGE);
-            int sideEffectIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_SIDE_EFFECTS);
 
-            String currName = cursor.getString(nameIndex);
+            currName = cursor.getString(nameIndex);
             String currDiseases = cursor.getString(diseasesIndex);
             String currPrice = String.valueOf(cursor.getInt(priceIndex));
             String currStatus = cursor.getString(statusIndex);
-            String currType = cursor.getString(typeIndex);
-            String currDosage = cursor.getString(dosageIndex);
-            String currSideEffect = cursor.getString(sideEffectIndex);
 
             mName.setText(currName);
             mDiseases.setText(currDiseases);
             mPrice.setText(currPrice);
             mStatus.setText(currStatus);
-            mType.setText(currType);
-            mDosage.setText(currDosage);
-            mSideEffect.setText(currSideEffect);
+
         }
     }
 
