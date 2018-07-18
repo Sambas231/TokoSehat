@@ -2,7 +2,7 @@ package com.example.android.tokosehat;
 
 public class Drug {
     private String name;
-    private String diseases;
+    private String benefits;
     private int price;
     private String status;
     private String type;
@@ -11,7 +11,7 @@ public class Drug {
 
     public Drug(String name, String diseases, int price, String status, String type, String dosage, String sideEffect) {
         this.name = name;
-        this.diseases = diseases;
+        this.benefits = diseases;
         this.price = price;
         this.status = status;
         this.type = type;
@@ -23,8 +23,8 @@ public class Drug {
         return name;
     }
 
-    public String getDiseases() {
-        return diseases;
+    public String getBenefits() {
+        return benefits;
     }
 
     public int getPrice() {

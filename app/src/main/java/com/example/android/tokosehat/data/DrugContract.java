@@ -34,7 +34,7 @@ public class DrugContract {
 
     public static final String _ID = BaseColumns._ID;
     public static final String COLUMN_DRUG_NAME = "name";
-    public static final String COLUMN_DRUG_DISEASES = "diseases";
+    public static final String COLUMN_DRUG_BENEFITS = "benefits";
     public static final String COLUMN_DRUG_PRICE = "price";
     public static final String COLUMN_DRUG_STATUS = "status";
     public static final String COLUMN_DRUG_TYPE = "type";

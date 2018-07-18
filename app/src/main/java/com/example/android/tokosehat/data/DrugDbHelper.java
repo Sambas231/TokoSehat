@@ -3,6 +3,8 @@ package com.example.android.tokosehat.data;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.android.tokosehat.Drug;
 import com.example.android.tokosehat.data.DrugContract.DrugEntry;
 
 public class DrugDbHelper extends SQLiteOpenHelper {
@@ -11,7 +13,7 @@ public class DrugDbHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "shop.db";
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     public DrugDbHelper(Context c) {
         super(c, DATABASE_NAME, null, DATABASE_VERSION);
@@ -22,7 +24,7 @@ public class DrugDbHelper extends SQLiteOpenHelper {
         String SQL_CREATE_TABLE = "CREATE TABLE " + DrugEntry.TABLE_NAME + "("
                 + DrugEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + DrugEntry.COLUMN_DRUG_NAME + " TEXT NOT NULL, "
-                + DrugEntry.COLUMN_DRUG_DISEASES + " TEXT NOT NULL, "
+                + DrugEntry.COLUMN_DRUG_BENEFITS + " TEXT NOT NULL, "
                 + DrugEntry.COLUMN_DRUG_PRICE + " INTEGER NOT NULL DEFAULT 0, "
                 + DrugEntry.COLUMN_DRUG_STATUS + " TEXT NOT NULL, "
                 + DrugEntry.COLUMN_DRUG_TYPE + " TEXT NOT NULL, "
@@ -34,6 +36,7 @@ public class DrugDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + DrugEntry.TABLE_NAME);
+        onCreate(sqLiteDatabase);
     }
 }

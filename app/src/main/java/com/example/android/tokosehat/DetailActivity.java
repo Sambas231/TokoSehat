@@ -111,7 +111,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int i, @Nullable Bundle bundle) {
-        String[] projection = new String[] {DrugEntry._ID, DrugEntry.COLUMN_DRUG_NAME, DrugEntry.COLUMN_DRUG_DISEASES, DrugEntry.COLUMN_DRUG_PRICE, DrugEntry.COLUMN_DRUG_STATUS};
+        String[] projection = new String[] {DrugEntry._ID, DrugEntry.COLUMN_DRUG_NAME, DrugEntry.COLUMN_DRUG_BENEFITS, DrugEntry.COLUMN_DRUG_PRICE, DrugEntry.COLUMN_DRUG_STATUS};
         return new CursorLoader(this, uri, projection, null, null, null);
     }
 
@@ -120,7 +120,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         if (cursor.moveToFirst()) {
 
             int nameIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_NAME);
-            int diseasesIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_DISEASES);
+            int diseasesIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_BENEFITS);
             int priceIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_PRICE);
             int statusIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_STATUS);
 
