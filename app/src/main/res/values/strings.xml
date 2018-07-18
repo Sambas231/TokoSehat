@@ -42,4 +42,10 @@
     <string name="quantity_dozen">Dozen</string>
 
     <string name="quantity_item">Item</string>
+
+    <string name="detail_quantity_item">/ Item</string>
+
+    <string name="detail_quantity_dozen">/ Dozen</string>
+
+    <string name="detail_quantity_box">/ Box</string>
 </resources>

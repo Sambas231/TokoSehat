@@ -35,12 +35,14 @@ public class DrugContract {
     public static final String _ID = BaseColumns._ID;
     public static final String COLUMN_DRUG_NAME = "name";
     public static final String COLUMN_DRUG_BENEFITS = "benefits";
-    public static final String COLUMN_DRUG_PRICE = "price";
+    public static final String COLUMN_DRUG_PRICE_ITEM = "pricePerItem";
+    public static final String COLUMN_DRUG_PRICE_DOZEN = "pricePerDozen";
+    public static final String COLUMN_DRUG_PRICE_BOX = "pricePerBox";
     public static final String COLUMN_DRUG_STATUS = "status";
     public static final String COLUMN_DRUG_TYPE = "type";
     public static final String COLUMN_DRUG_DOSAGE = "dosage";
     public static final String COLUMN_DRUG_SIDE_EFFECTS = "side_effect";
-    public static final String COLUMN_DRUG_QUANTITY = "quantity";
+
 
     public static final String STATUS_AVAILABLE = "Available";
     public static final String STATUS_OUT_OF_STOCK = "Out of stock";

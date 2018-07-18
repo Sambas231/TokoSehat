@@ -113,7 +113,9 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         String[] projection = new String[] {DrugEntry._ID,
                 DrugEntry.COLUMN_DRUG_NAME,
                 DrugEntry.COLUMN_DRUG_BENEFITS,
-                DrugEntry.COLUMN_DRUG_PRICE,
+                DrugEntry.COLUMN_DRUG_PRICE_ITEM,
+                DrugEntry.COLUMN_DRUG_PRICE_DOZEN,
+                DrugEntry.COLUMN_DRUG_PRICE_BOX,
                 DrugEntry.COLUMN_DRUG_STATUS,
                 DrugEntry.COLUMN_DRUG_TYPE,
                 DrugEntry.COLUMN_DRUG_DOSAGE,
@@ -130,7 +132,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         ContentValues values = new ContentValues();
         values.put(DrugEntry.COLUMN_DRUG_NAME, "Paracetamol");
         values.put(DrugEntry.COLUMN_DRUG_BENEFITS, "Demam, Nyeri");
-        values.put(DrugEntry.COLUMN_DRUG_PRICE, 7000);
+        values.put(DrugEntry.COLUMN_DRUG_PRICE_ITEM, 7000);
         values.put(DrugEntry.COLUMN_DRUG_STATUS, DrugEntry.STATUS_AVAILABLE);
         values.put(DrugEntry.COLUMN_DRUG_TYPE, DrugEntry.TYPE_TABLET);
         values.put(DrugEntry.COLUMN_DRUG_DOSAGE, "3 * 1");
@@ -148,6 +150,8 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
     private void defaultInsert() {
         ArrayList<Drug> drugArrayList = new ArrayList<>();
+
+
 
         int size = drugArrayList.size();
         for (int i = 0; i < size; i++) {

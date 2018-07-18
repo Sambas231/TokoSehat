@@ -18,6 +18,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CursorAdapter;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,9 +38,16 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
     private TextView mName;
     private TextView mDiseases;
-    private TextView mPrice;
+    private TextView mPriceItem;
+    private TextView mPriceDozen;
+    private TextView mPriceBox;
     private TextView mStatus;
-    private Spinner mSpinner;
+    private TextView mType;
+    private TextView mDosage;
+    private TextView mSideEffect;
+    private RelativeLayout item;
+    private RelativeLayout dozen;
+    private RelativeLayout box;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,43 +56,21 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
         mName = (TextView) findViewById(R.id.detail_name);
         mDiseases = (TextView) findViewById(R.id.detail_diseases);
-        mPrice = (TextView) findViewById(R.id.detail_price_text);
+        mPriceItem = (TextView) findViewById(R.id.detail_price_text_item);
+        mPriceDozen = (TextView) findViewById(R.id.detail_price_text_dozen);
+        mPriceBox = (TextView) findViewById(R.id.detail_price_text_box);
         mStatus = (TextView) findViewById(R.id.detail_status);
-        mSpinner = (Spinner) findViewById(R.id.spinner_quantity);
+        mType = (TextView) findViewById(R.id.detail_type);
+        mDosage = (TextView) findViewById(R.id.detail_dosage);
+        mSideEffect = (TextView) findViewById(R.id.detail_side_effect);
+        item = (RelativeLayout) findViewById(R.id.layout_item);
+        dozen = (RelativeLayout) findViewById(R.id.layout_dozen);
+        box = (RelativeLayout) findViewById(R.id.layout_box);
 
         uri = getIntent().getData();
 
         getLoaderManager().initLoader(PET_LOADER, null,  this);
         setTitle("Details");
-
-        ArrayAdapter quantitySpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.array_quantity_options, android.R.layout.simple_spinner_item);
-        quantitySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        mSpinner.setAdapter(quantitySpinnerAdapter);
-
-        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String selection = (String) adapterView.getItemAtPosition(i);
-
-                if (!selection.isEmpty()) {
-                    if (selection.equals(getString(R.string.quantity_item))) {
-                        mQuantity = DrugEntry.QUANTITY_ITEM;
-                    }
-                    else if (selection.equals(getString(R.string.quantity_dozen))) {
-                        mQuantity = DrugEntry.QUANTITY_DOZEN;
-                    }
-                    else {
-                        mQuantity = DrugEntry.QUANTITY_BOX;
-                    }
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                mQuantity = DrugEntry.QUANTITY_ITEM;
-            }
-        });
-
     }
 
 
@@ -148,7 +135,14 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int i, @Nullable Bundle bundle) {
-        String[] projection = new String[] {DrugEntry._ID, DrugEntry.COLUMN_DRUG_NAME, DrugEntry.COLUMN_DRUG_BENEFITS, DrugEntry.COLUMN_DRUG_PRICE, DrugEntry.COLUMN_DRUG_STATUS};
+        String[] projection = new String[] {DrugEntry._ID,
+                DrugEntry.COLUMN_DRUG_NAME,
+                DrugEntry.COLUMN_DRUG_BENEFITS,
+                DrugEntry.COLUMN_DRUG_PRICE,
+                DrugEntry.COLUMN_DRUG_STATUS,
+                DrugEntry.COLUMN_DRUG_TYPE,
+                DrugEntry.COLUMN_DRUG_DOSAGE,
+                DrugEntry.COLUMN_DRUG_SIDE_EFFECTS};
         return new CursorLoader(this, uri, projection, null, null, null);
     }
 
@@ -157,35 +151,56 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         if (cursor.moveToFirst()) {
 
             int nameIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_NAME);
-            int diseasesIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_BENEFITS);
+            int benefitsIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_BENEFITS);
             int priceIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_PRICE);
             int statusIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_STATUS);
-            int quantityIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_QUANTITY);
+            int typeIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_TYPE);
+            int dosageIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_DOSAGE);
+            int sideEffectIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_SIDE_EFFECTS);
 
             String currName = cursor.getString(nameIndex);
-            String currDiseases = cursor.getString(diseasesIndex);
+            String currDiseases = cursor.getString(benefitsIndex);
             String currPrice = String.valueOf(cursor.getInt(priceIndex));
             String currStatus = cursor.getString(statusIndex);
-            String currQuantity = cursor.getString(quantityIndex);
+            String currType = cursor.getString(typeIndex);
+            String currDosage = cursor.getString(dosageIndex);
+            String currSideEffect = cursor.getString(sideEffectIndex);
 
-            switch (currQuantity) {
-                case DrugEntry.QUANTITY_ITEM:
-                    mSpinner.setSelection(0);
-                    break;
+            String[] temp = currPrice.split(",");
+            int itemPrice = Integer.parseInt(temp[0]);
+            int dozenPrice = Integer.parseInt(temp[1]);
+            int boxPrice = Integer.parseInt(temp[2]);
 
-                case DrugEntry.QUANTITY_DOZEN:
-                    mSpinner.setSelection(1);
-                    break;
+            if (itemPrice <= 0) {
+                item.setVisibility(View.GONE);
+            }
+            else {
+                item.setVisibility(View.VISIBLE);
+                mPriceItem.setText(String.valueOf(itemPrice));
+            }
 
-                default:
-                    mSpinner.setSelection(2);
-                    break;
+            if (dozenPrice <= 0) {
+                dozen.setVisibility(View.GONE);
+            }
+            else {
+                dozen.setVisibility(View.VISIBLE);
+                mPriceDozen.setText(String.valueOf(dozenPrice));
+            }
+
+            if (boxPrice <= 0) {
+                box.setVisibility(View.GONE);
+            }
+            else {
+                box.setVisibility(View.VISIBLE);
+                mPriceBox.setText(String.valueOf(boxPrice));
             }
 
             mName.setText(currName);
             mDiseases.setText(currDiseases);
-            mPrice.setText(currPrice);
             mStatus.setText(currStatus);
+            mType.setText(currType);
+            mDosage.setText(currDosage);
+            mSideEffect.setText(currSideEffect);
 
         }
     }

@@ -3,15 +3,15 @@ package com.example.android.tokosehat;
 public class Drug {
     private String name;
     private String benefits;
-    private int price;
+    private String price;
     private String status;
     private String type;
     private String dosage;
     private String sideEffect;
 
-    public Drug(String name, String diseases, int price, String status, String type, String dosage, String sideEffect) {
+    public Drug(String name, String benefits, String price, String status, String type, String dosage, String sideEffect) {
         this.name = name;
-        this.benefits = diseases;
+        this.benefits = benefits;
         this.price = price;
         this.status = status;
         this.type = type;
@@ -27,7 +27,7 @@ public class Drug {
         return benefits;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
