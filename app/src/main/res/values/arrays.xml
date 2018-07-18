@@ -5,4 +5,10 @@
         <item>@string/status_available</item>
         <item>@string/status_out_of_stock</item>
     </string-array>
+
+    <string-array name="array_quantity_options">
+        <item>@string/quantity_item</item>
+        <item>@string/quantity_dozen</item>
+        <item>@string/quantity_box</item>
+    </string-array>
 </resources>

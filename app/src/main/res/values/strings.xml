@@ -36,4 +36,10 @@
     <string name="category_name">Name</string>
 
     <string name="category_diseases">Diseases</string>
+
+    <string name="quantity_box">Box</string>
+
+    <string name="quantity_dozen">Dozen</string>
+
+    <string name="quantity_item">Item</string>
 </resources>

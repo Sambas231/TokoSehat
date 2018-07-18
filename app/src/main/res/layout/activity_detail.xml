@@ -84,10 +84,25 @@
                 android:text="@string/currency_rupiah"
                 android:paddingRight="5dp"/>
 
+
+
             <TextView
                 android:id="@+id/detail_price_text"
+                android:layout_width="match_parent"
                 style="@style/editor_edit_number"
-                android:layout_toRightOf="@id/detail_rupiah"/>
+                android:layout_toRightOf="@id/detail_rupiah"
+                android:layout_toLeftOf="@id/spinner_quantity"/>
+
+            <Spinner
+                android:id="@+id/spinner_quantity"
+                android:layout_width="106dp"
+                android:layout_height="wrap_content"
+                android:entries="@array/array_quantity_options"
+                android:spinnerMode="dialog"
+                android:layout_alignParentRight="true">
+
+
+            </Spinner>
         </RelativeLayout>
     </LinearLayout>
 

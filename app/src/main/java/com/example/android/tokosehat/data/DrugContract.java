@@ -40,6 +40,7 @@ public class DrugContract {
     public static final String COLUMN_DRUG_TYPE = "type";
     public static final String COLUMN_DRUG_DOSAGE = "dosage";
     public static final String COLUMN_DRUG_SIDE_EFFECTS = "side_effect";
+    public static final String COLUMN_DRUG_QUANTITY = "quantity";
 
     public static final String STATUS_AVAILABLE = "Available";
     public static final String STATUS_OUT_OF_STOCK = "Out of stock";
@@ -47,6 +48,10 @@ public class DrugContract {
     public static final String TYPE_TABLET = "Tablet";
     public static final String TYPE_SIRUP = "Sirup";
     public static final String TYPE_KAPSUL = "Kapsul";
+
+    public static final String QUANTITY_BOX = "Box";
+    public static final String QUANTITY_DOZEN = "Dozen";
+    public static final String QUANTITY_ITEM = "Item";
 
     // TODO: make validation method for status
     protected static final boolean isValidStatus(String status) {

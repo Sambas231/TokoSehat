@@ -149,8 +149,6 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     private void defaultInsert() {
         ArrayList<Drug> drugArrayList = new ArrayList<>();
 
-
-
         int size = drugArrayList.size();
         for (int i = 0; i < size; i++) {
             ContentValues values = new ContentValues();

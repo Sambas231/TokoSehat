@@ -13,7 +13,7 @@ public class DrugDbHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "shop.db";
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     public DrugDbHelper(Context c) {
         super(c, DATABASE_NAME, null, DATABASE_VERSION);
@@ -29,7 +29,9 @@ public class DrugDbHelper extends SQLiteOpenHelper {
                 + DrugEntry.COLUMN_DRUG_STATUS + " TEXT NOT NULL, "
                 + DrugEntry.COLUMN_DRUG_TYPE + " TEXT NOT NULL, "
                 + DrugEntry.COLUMN_DRUG_DOSAGE + " TEXT, "
-                + DrugEntry.COLUMN_DRUG_SIDE_EFFECTS + " TEXT);";
+                + DrugEntry.COLUMN_DRUG_SIDE_EFFECTS + " TEXT, "
+                + DrugEntry.COLUMN_DRUG_QUANTITY + " TEXT NOT NULL);";
+
 
         sqLiteDatabase.execSQL(SQL_CREATE_TABLE);
     }
