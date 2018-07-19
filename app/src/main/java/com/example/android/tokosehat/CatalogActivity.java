@@ -150,7 +150,17 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
     private void defaultInsert() {
         ArrayList<Drug> drugArrayList = new ArrayList<>();
-
+        drugArrayList.add(new Drug(
+                "asdf",
+                "salkdjfskdf",
+                12000,
+                134234,
+                14234,
+                DrugEntry.STATUS_AVAILABLE,
+                DrugEntry.TYPE_TABLET,
+                "asdfsdf",
+                "askjdfklsajd"
+        ));
 
 
         int size = drugArrayList.size();
@@ -158,7 +168,9 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
             ContentValues values = new ContentValues();
             values.put(DrugEntry.COLUMN_DRUG_NAME, drugArrayList.get(i).getName());
             values.put(DrugEntry.COLUMN_DRUG_BENEFITS, drugArrayList.get(i).getBenefits());
-            values.put(DrugEntry.COLUMN_DRUG_PRICE, drugArrayList.get(i).getPrice());
+            values.put(DrugEntry.COLUMN_DRUG_PRICE_ITEM, drugArrayList.get(i).getItemPrice());
+            values.put(DrugEntry.COLUMN_DRUG_PRICE_DOZEN, drugArrayList.get(i).getDozenPrice());
+            values.put(DrugEntry.COLUMN_DRUG_PRICE_BOX, drugArrayList.get(i).getBoxPrice());
             values.put(DrugEntry.COLUMN_DRUG_STATUS, drugArrayList.get(i).getStatus());
             values.put(DrugEntry.COLUMN_DRUG_TYPE, drugArrayList.get(i).getType());
             values.put(DrugEntry.COLUMN_DRUG_DOSAGE, drugArrayList.get(i).getDosage());
@@ -171,7 +183,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
     @Override
     public android.content.Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        String[] projection = new String[] {DrugEntry._ID, DrugEntry.COLUMN_DRUG_NAME, DrugEntry.COLUMN_DRUG_BENEFITS, DrugEntry.COLUMN_DRUG_PRICE, DrugEntry.COLUMN_DRUG_STATUS};
+        String[] projection = new String[] {DrugEntry._ID, DrugEntry.COLUMN_DRUG_NAME, DrugEntry.COLUMN_DRUG_BENEFITS, DrugEntry.COLUMN_DRUG_PRICE_ITEM, DrugEntry.COLUMN_DRUG_STATUS};
         return new CursorLoader(this, DrugEntry.CONTENT_URI, projection, null, null, null);
     }
 
@@ -190,7 +202,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         String selectQuery =  "SELECT " + DrugEntry._ID + ", "
                 + DrugEntry.COLUMN_DRUG_NAME + ", "
                 + DrugEntry.COLUMN_DRUG_BENEFITS  + ", "
-                + DrugEntry.COLUMN_DRUG_PRICE + ", "
+                + DrugEntry.COLUMN_DRUG_PRICE_ITEM + ", "
                 + DrugEntry.COLUMN_DRUG_STATUS + ", "
                 + DrugEntry.COLUMN_DRUG_TYPE + ", "
                 + DrugEntry.COLUMN_DRUG_DOSAGE + ", "

@@ -31,7 +31,7 @@ public class DrugCursorAdapter extends CursorAdapter {
 
         int nameIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_NAME);
         int statusIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_STATUS);
-        int priceIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_PRICE);
+        int priceIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_PRICE_ITEM);
         int diseasesIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_BENEFITS);
 
         String name = cursor.getString(nameIndex);

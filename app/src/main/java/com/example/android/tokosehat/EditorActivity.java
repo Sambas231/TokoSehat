@@ -117,7 +117,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         if (!priceString.isEmpty()) {
             price = Integer.parseInt(priceString);
         }
-        values.put(DrugEntry.COLUMN_DRUG_PRICE, price);
+        values.put(DrugEntry.COLUMN_DRUG_PRICE_ITEM, price);
 
         if (mCurrentUri == null) {
             Uri newUri = getContentResolver().insert(DrugEntry.CONTENT_URI, values);
@@ -210,7 +210,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int i, @Nullable Bundle bundle) {
-        String[] projection = {DrugEntry._ID, DrugEntry.COLUMN_DRUG_NAME, DrugEntry.COLUMN_DRUG_BENEFITS, DrugEntry.COLUMN_DRUG_PRICE, DrugEntry.COLUMN_DRUG_STATUS};
+        String[] projection = {DrugEntry._ID, DrugEntry.COLUMN_DRUG_NAME, DrugEntry.COLUMN_DRUG_BENEFITS, DrugEntry.COLUMN_DRUG_PRICE_ITEM, DrugEntry.COLUMN_DRUG_STATUS};
 
         return new CursorLoader(this, mCurrentUri, projection, null, null, null);
     }
@@ -224,7 +224,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         if (cursor.moveToFirst()) {
             int nameIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_NAME);
             int diseasesIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_BENEFITS);
-            int priceIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_PRICE);
+            int priceIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_PRICE_ITEM);
             int statusIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_STATUS);
 
             String name = cursor.getString(nameIndex);

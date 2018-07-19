@@ -106,7 +106,7 @@ public class DrugProvider extends ContentProvider {
             throw new IllegalArgumentException("Please insert valid diseases");
         }
 
-        Integer price = values.getAsInteger(DrugEntry.COLUMN_DRUG_PRICE);
+        Integer price = values.getAsInteger(DrugEntry.COLUMN_DRUG_PRICE_ITEM);
         if (price != null && price < 0) {
             throw new IllegalArgumentException("Please insert valid price");
         }
@@ -196,8 +196,8 @@ public class DrugProvider extends ContentProvider {
             }
         }
         
-        if (values.containsKey(DrugEntry.COLUMN_DRUG_PRICE)) {
-            Integer price = values.getAsInteger(DrugEntry.COLUMN_DRUG_PRICE);
+        if (values.containsKey(DrugEntry.COLUMN_DRUG_PRICE_ITEM)) {
+            Integer price = values.getAsInteger(DrugEntry.COLUMN_DRUG_PRICE_ITEM);
             
             if (price != null && price < 0) {
                 throw new IllegalArgumentException("Drug need valid price");

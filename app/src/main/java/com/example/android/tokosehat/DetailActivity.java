@@ -138,7 +138,9 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         String[] projection = new String[] {DrugEntry._ID,
                 DrugEntry.COLUMN_DRUG_NAME,
                 DrugEntry.COLUMN_DRUG_BENEFITS,
-                DrugEntry.COLUMN_DRUG_PRICE,
+                DrugEntry.COLUMN_DRUG_PRICE_ITEM,
+                DrugEntry.COLUMN_DRUG_PRICE_DOZEN,
+                DrugEntry.COLUMN_DRUG_PRICE_BOX,
                 DrugEntry.COLUMN_DRUG_STATUS,
                 DrugEntry.COLUMN_DRUG_TYPE,
                 DrugEntry.COLUMN_DRUG_DOSAGE,
@@ -152,7 +154,9 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
             int nameIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_NAME);
             int benefitsIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_BENEFITS);
-            int priceIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_PRICE);
+            int itemPriceIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_PRICE_ITEM);
+            int dozenPriceIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_PRICE_DOZEN);
+            int boxPriceIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_PRICE_BOX);
             int statusIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_STATUS);
             int typeIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_TYPE);
             int dosageIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_DOSAGE);
@@ -160,39 +164,36 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
             String currName = cursor.getString(nameIndex);
             String currDiseases = cursor.getString(benefitsIndex);
-            String currPrice = String.valueOf(cursor.getInt(priceIndex));
+            int currItemPrice = cursor.getInt(itemPriceIndex);
+            int currDozenPrice = cursor.getInt(dozenPriceIndex);
+            int currBoxPrice = cursor.getInt(boxPriceIndex);
             String currStatus = cursor.getString(statusIndex);
             String currType = cursor.getString(typeIndex);
             String currDosage = cursor.getString(dosageIndex);
             String currSideEffect = cursor.getString(sideEffectIndex);
 
-            String[] temp = currPrice.split(",");
-            int itemPrice = Integer.parseInt(temp[0]);
-            int dozenPrice = Integer.parseInt(temp[1]);
-            int boxPrice = Integer.parseInt(temp[2]);
-
-            if (itemPrice <= 0) {
+            if (currItemPrice <= 0) {
                 item.setVisibility(View.GONE);
             }
             else {
                 item.setVisibility(View.VISIBLE);
-                mPriceItem.setText(String.valueOf(itemPrice));
+                mPriceItem.setText(String.valueOf(currItemPrice));
             }
 
-            if (dozenPrice <= 0) {
+            if (currDozenPrice <= 0) {
                 dozen.setVisibility(View.GONE);
             }
             else {
                 dozen.setVisibility(View.VISIBLE);
-                mPriceDozen.setText(String.valueOf(dozenPrice));
+                mPriceDozen.setText(String.valueOf(currDozenPrice));
             }
 
-            if (boxPrice <= 0) {
+            if (currBoxPrice <= 0) {
                 box.setVisibility(View.GONE);
             }
             else {
                 box.setVisibility(View.VISIBLE);
-                mPriceBox.setText(String.valueOf(boxPrice));
+                mPriceBox.setText(String.valueOf(currBoxPrice));
             }
 
             mName.setText(currName);
