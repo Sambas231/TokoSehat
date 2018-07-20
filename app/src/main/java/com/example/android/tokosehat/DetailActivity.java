@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -49,13 +50,15 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     private RelativeLayout dozen;
     private RelativeLayout box;
 
+    private ListView listview;
+    private ArrayAdapter<String> adapter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
         mName = (TextView) findViewById(R.id.detail_name);
-        mDiseases = (TextView) findViewById(R.id.detail_diseases);
         mPriceItem = (TextView) findViewById(R.id.detail_price_text_item);
         mPriceDozen = (TextView) findViewById(R.id.detail_price_text_dozen);
         mPriceBox = (TextView) findViewById(R.id.detail_price_text_box);
@@ -68,6 +71,8 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         box = (RelativeLayout) findViewById(R.id.layout_box);
 
         uri = getIntent().getData();
+
+        listview = (ListView) findViewById(R.id.list_detail);
 
         getLoaderManager().initLoader(PET_LOADER, null,  this);
         setTitle("Details");
@@ -174,6 +179,9 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
             String[] benefits = currBenefit.split(";");
 
+            adapter = new ArrayAdapter<>(this, R.layout.list_item_detail, R.id.list_detail_text, benefits);
+            listview.setAdapter(adapter);
+
             if (currItemPrice <= 0) {
                 item.setVisibility(View.GONE);
             }
@@ -199,7 +207,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             }
 
             mName.setText(currName);
-            mDiseases.setText(currBenefit);
             mStatus.setText(currStatus);
             mType.setText(currType);
             mDosage.setText(currDosage);

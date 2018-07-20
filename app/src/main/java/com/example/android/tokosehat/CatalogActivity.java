@@ -152,14 +152,16 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         ArrayList<Drug> drugArrayList = new ArrayList<>();
         drugArrayList.add(new Drug(
                 "Adem Sari",
-                "salkdjfskdf",
-                12000,
-                134234,
-                14234,
+                "Meredakan gejala panas dalam seperti sariawan, tenggorokan sakit, bibir pecah-pecah dan susah buang air besar;" +
+                        "Meningkatkan daya tahan tubuh;" +
+                        "Meredakan gejala flu dan bersin-bersin",
+                0,
+                0,
+                26000,
                 DrugEntry.STATUS_AVAILABLE,
-                DrugEntry.TYPE_TABLET,
-                "asdfsdf",
-                "askjdfklsajd"
+                DrugEntry.TYPE_SACHET,
+                "-",
+                "-"
         ));
 
 
