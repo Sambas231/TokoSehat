@@ -163,7 +163,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             int sideEffectIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_SIDE_EFFECTS);
 
             String currName = cursor.getString(nameIndex);
-            String currDiseases = cursor.getString(benefitsIndex);
+            String currBenefit = cursor.getString(benefitsIndex);
             int currItemPrice = cursor.getInt(itemPriceIndex);
             int currDozenPrice = cursor.getInt(dozenPriceIndex);
             int currBoxPrice = cursor.getInt(boxPriceIndex);
@@ -171,6 +171,8 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             String currType = cursor.getString(typeIndex);
             String currDosage = cursor.getString(dosageIndex);
             String currSideEffect = cursor.getString(sideEffectIndex);
+
+            String[] benefits = currBenefit.split(";");
 
             if (currItemPrice <= 0) {
                 item.setVisibility(View.GONE);
@@ -197,7 +199,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             }
 
             mName.setText(currName);
-            mDiseases.setText(currDiseases);
+            mDiseases.setText(currBenefit);
             mStatus.setText(currStatus);
             mType.setText(currType);
             mDosage.setText(currDosage);

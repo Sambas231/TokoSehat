@@ -151,7 +151,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     private void defaultInsert() {
         ArrayList<Drug> drugArrayList = new ArrayList<>();
         drugArrayList.add(new Drug(
-                "asdf",
+                "Adem Sari",
                 "salkdjfskdf",
                 12000,
                 134234,
