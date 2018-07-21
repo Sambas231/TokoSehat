@@ -117,9 +117,12 @@ public class DrugProvider extends ContentProvider {
         }
 
         SQLiteDatabase db = drugDbHelper.getWritableDatabase();
-        
+
+        db.beginTransaction();
         long id = db.insert(DrugEntry.TABLE_NAME, null, values);
-        
+        db.setTransactionSuccessful();
+        db.endTransaction();
+
         if (id == -1) {
           Log.e(LOG_TAG, "Failed to insert row for " + uri);
           return null;

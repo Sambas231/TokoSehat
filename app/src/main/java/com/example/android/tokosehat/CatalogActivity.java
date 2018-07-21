@@ -150,19 +150,143 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
     private void defaultInsert() {
         ArrayList<Drug> drugArrayList = new ArrayList<>();
-        drugArrayList.add(new Drug(
-                "Adem Sari",
-                "Meredakan gejala panas dalam seperti sariawan, tenggorokan sakit, bibir pecah-pecah dan susah buang air besar;" +
-                        "Meningkatkan daya tahan tubuh;" +
-                        "Meredakan gejala flu dan bersin-bersin",
-                0,
-                0,
-                26000,
-                DrugEntry.STATUS_AVAILABLE,
-                DrugEntry.TYPE_SACHET,
-                "-",
-                "-"
-        ));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Aflucaps", 5000, 48000, 0, DrugEntry.TYPE_TABLET));
+        drugArrayList.add(new Drug("Alkohol 285mL", 15000, 0, 0, DrugEntry.TYPE_SIRUP));
+        drugArrayList.add(new Drug("Alkohol 100mL", 7000, 0, 0, DrugEntry.TYPE_SIRUP));
+        drugArrayList.add(new Drug("Alleron", 2000, 0, 20000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Anakonidin 30mL", 9000, 90000, 0, DrugEntry.TYPE_SIRUP));
+        drugArrayList.add(new Drug("Antangin", 3000, 0, 44000, DrugEntry.TYPE_TABLET));
+        drugArrayList.add(new Drug("Antangin", 3000, 0, 27000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Antimo Anak", 2500, 0, 15000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Antimo Dewasa", 6000, 60000, 0, DrugEntry.TYPE_TABLET));
+        drugArrayList.add(new Drug("Asepso", 8000, 0, 0, DrugEntry.TYPE_SOLID));
+        drugArrayList.add(new Drug("Anggur cap Jam Kecil", 70000, 0, 0, DrugEntry.TYPE_SIRUP));
+        drugArrayList.add(new Drug("Anggur cap Jam Besar", 120000, 0, 0, DrugEntry.TYPE_SIRUP));
+        drugArrayList.add(new Drug("Askamex", 2500, 20000, 74000, DrugEntry.TYPE_TABLET));
+        drugArrayList.add(new Drug("Aknil", 9000, 0, 75000, DrugEntry.TYPE_TABLET));
+        drugArrayList.add(new Drug("Antangin Junior", 9000, 0, 0, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Atmacid", 6000, 0, 0, DrugEntry.TYPE_TABLET));
+        drugArrayList.add(new Drug("Asma Soho", 4000, 33000, 64000, DrugEntry.TYPE_TABLET));
+        drugArrayList.add(new Drug("Asmasolon", 3000, 0, 49000, DrugEntry.TYPE_TABLET));
+        drugArrayList.add(new Drug("Alermax", 5000, 0, 0, DrugEntry.TYPE_TABLET));
+        drugArrayList.add(new Drug("Ambeven", 18000, 0, 0, DrugEntry.TYPE_KAPSUL));
+        drugArrayList.add(new Drug("Antalinu", 1500, 0, 20000, DrugEntry.TYPE_TABLET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+        drugArrayList.add(new Drug("Adem Sari", 2500, 0, 43000, DrugEntry.TYPE_SACHET));
+
+
 
 
         int size = drugArrayList.size();

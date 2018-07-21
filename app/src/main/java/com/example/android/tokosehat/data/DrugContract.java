@@ -51,6 +51,7 @@ public class DrugContract {
     public static final String TYPE_SIRUP = "Sirup";
     public static final String TYPE_KAPSUL = "Kapsul";
     public static final String TYPE_SACHET = "Sachet";
+    public static final String TYPE_SOLID = "Solid";
 
     public static final String QUANTITY_BOX = "Box";
     public static final String QUANTITY_DOZEN = "Dozen";
