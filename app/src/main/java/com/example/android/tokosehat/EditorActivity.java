@@ -41,7 +41,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     private EditText mName;
     private EditText mDiseases;
-    private EditText mPrice;
+    private EditText mItemPrice;
+    private EditText mDozenPrice;
+    private EditText mBoxPrice;
     private Spinner mStatusSpinner;
 
     private String mStatus = DrugEntry.STATUS_OUT_OF_STOCK;
@@ -62,12 +64,16 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         }
         mName = (EditText) findViewById(R.id.editor_edit_name);
         mDiseases = (EditText) findViewById(R.id.editor_edit_diseases);
-        mPrice = (EditText) findViewById(R.id.editor_price_edit_text);
+        mItemPrice = (EditText) findViewById(R.id.editor_price_edit_item);
+        mDozenPrice = (EditText) findViewById(R.id.editor_price_edit_dozen);
+        mBoxPrice = (EditText) findViewById(R.id.editor_price_edit_box);
         mStatusSpinner = (Spinner) findViewById(R.id.editor_spinner);
 
         mName.setOnTouchListener(onTouchListener);
         mDiseases.setOnTouchListener(onTouchListener);
-        mPrice.setOnTouchListener(onTouchListener);
+        mItemPrice.setOnTouchListener(onTouchListener);
+        mBoxPrice.setOnTouchListener(onTouchListener);
+        mDozenPrice.setOnTouchListener(onTouchListener);
         mStatusSpinner.setOnTouchListener(onTouchListener);
 
         ArrayAdapter statusSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.array_status_options, android.R.layout.simple_spinner_item);
@@ -101,10 +107,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private void saveDrug() {
         String nameString = mName.getText().toString().trim();
         String diseasesString = mDiseases.getText().toString().trim();
-        String priceString = mPrice.getText().toString().trim();
+        String itemPriceString = mItemPrice.getText().toString().trim();
+        String dozenPriceString = mDozenPrice.getText().toString().trim();
+        String boxPriceString = mBoxPrice.getText().toString().trim();
 
         if (mCurrentUri == null && nameString.isEmpty() && diseasesString.isEmpty() &&
-                priceString.isEmpty() && mStatus.equals(DrugEntry.STATUS_OUT_OF_STOCK)) {
+                itemPriceString.isEmpty() && mStatus.equals(DrugEntry.STATUS_OUT_OF_STOCK)) {
             return;
         }
 
@@ -113,11 +121,22 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         values.put(DrugEntry.COLUMN_DRUG_BENEFITS, diseasesString);
         values.put(DrugEntry.COLUMN_DRUG_STATUS, mStatus);
 
-        int price = 0;
-        if (!priceString.isEmpty()) {
-            price = Integer.parseInt(priceString);
+        int itemPrice = 0;
+        int dozenPrice = 0;
+        int boxPrice = 0;
+        if (!itemPriceString.isEmpty()) {
+            itemPrice = Integer.parseInt(itemPriceString);
         }
-        values.put(DrugEntry.COLUMN_DRUG_PRICE_ITEM, price);
+        if (!dozenPriceString.isEmpty()) {
+            dozenPrice = Integer.parseInt(dozenPriceString);
+        }
+        if (!boxPriceString.isEmpty()) {
+            boxPrice = Integer.parseInt(boxPriceString);
+        }
+
+        values.put(DrugEntry.COLUMN_DRUG_PRICE_ITEM, itemPrice);
+        values.put(DrugEntry.COLUMN_DRUG_PRICE_DOZEN, dozenPrice);
+        values.put(DrugEntry.COLUMN_DRUG_PRICE_BOX, boxPrice);
 
         if (mCurrentUri == null) {
             Uri newUri = getContentResolver().insert(DrugEntry.CONTENT_URI, values);
@@ -210,7 +229,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int i, @Nullable Bundle bundle) {
-        String[] projection = {DrugEntry._ID, DrugEntry.COLUMN_DRUG_NAME, DrugEntry.COLUMN_DRUG_BENEFITS, DrugEntry.COLUMN_DRUG_PRICE_ITEM, DrugEntry.COLUMN_DRUG_STATUS};
+        String[] projection = {DrugEntry._ID, DrugEntry.COLUMN_DRUG_NAME, DrugEntry.COLUMN_DRUG_BENEFITS, DrugEntry.COLUMN_DRUG_PRICE_ITEM, DrugEntry.COLUMN_DRUG_PRICE_DOZEN, DrugEntry.COLUMN_DRUG_PRICE_BOX, DrugEntry.COLUMN_DRUG_STATUS};
 
         return new CursorLoader(this, mCurrentUri, projection, null, null, null);
     }
@@ -224,17 +243,24 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         if (cursor.moveToFirst()) {
             int nameIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_NAME);
             int diseasesIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_BENEFITS);
-            int priceIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_PRICE_ITEM);
+            int itemPriceIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_PRICE_ITEM);
+            int dozenPriceIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_PRICE_DOZEN);
+            int boxPriceIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_PRICE_BOX);
             int statusIndex = cursor.getColumnIndex(DrugEntry.COLUMN_DRUG_STATUS);
+
 
             String name = cursor.getString(nameIndex);
             String diseases = cursor.getString(diseasesIndex);
             String status = cursor.getString(statusIndex);
-            int price = cursor.getInt(priceIndex);
+            int itemPrice = cursor.getInt(itemPriceIndex);
+            int dozenPrice = cursor.getInt(dozenPriceIndex);
+            int boxPrice = cursor.getInt(boxPriceIndex);
 
             mName.setText(name);
             mDiseases.setText(diseases);
-            mPrice.setText(String.valueOf(price));
+            mItemPrice.setText(String.valueOf(itemPrice));
+            mDozenPrice.setText(String.valueOf(dozenPrice));
+            mBoxPrice.setText(String.valueOf(boxPrice));
 
             switch (status) {
                 case DrugEntry.STATUS_AVAILABLE:
@@ -254,7 +280,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
         mName.setText("");
         mDiseases.setText("");
-        mPrice.setText("");
+        mItemPrice.setText("");
+        mDozenPrice.setText("");
+        mBoxPrice.setText("");
         mStatusSpinner.setSelection(0);
     }
 }

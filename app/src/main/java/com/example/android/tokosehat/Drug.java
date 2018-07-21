@@ -1,5 +1,7 @@
 package com.example.android.tokosehat;
 
+import com.example.android.tokosehat.data.DrugContract.DrugEntry;
+
 public class Drug {
     private String name;
     private String benefits;
@@ -10,6 +12,18 @@ public class Drug {
     private String type;
     private String dosage;
     private String sideEffect;
+
+    public Drug(String name, int itemPrice, int dozenPrice, int boxPrice, String type) {
+        this.name = name;
+        this.benefits = "-";
+        this.itemPrice = itemPrice;
+        this.dozenPrice = dozenPrice;
+        this.boxPrice = boxPrice;
+        this.status = DrugEntry.STATUS_AVAILABLE;
+        this.type = type;
+        this.dosage = "-";
+        this.sideEffect = "-";
+    }
 
     public Drug(String name, String benefits, int itemPrice, int dozenPrice, int boxPrice, String status, String type, String dosage, String sideEffect) {
         this.name = name;
