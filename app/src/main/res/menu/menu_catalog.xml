@@ -18,6 +18,7 @@
     <item
         android:id="@+id/action_delete_all"
         android:title="Delete All"
+        app:showAsAction="never"
         />
 
 

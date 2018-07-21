@@ -105,8 +105,23 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                     defaultInsert();
                 }
                 return true;
+                
+            case R.id.action_delete_all:
+                deleteAll();     
+                return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private int deleteAll() {
+       int rows = getContentResolver.delete(DrugEntry.CONTENT_URI, null,null);
+       
+       if (rows == 0) {
+         Toast.makeText(CatalogActivity.this, "Delete failed", Toast.LENGTH_SHORT).show();
+       }
+       else {
+         Toast.makeText(CatalogActivity.this, "Deleted all drugs", Toast.LENGTH_SHORT).show();
+       }
     }
 
     private boolean isDbEmpty() {
